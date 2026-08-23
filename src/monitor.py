@@ -1,3 +1,4 @@
+import html
 import json
 import os
 import sys
@@ -17,6 +18,10 @@ MIN_VALID_MODEL_COUNT = 50
 MAX_DROP_RATIO = 0.5
 MAX_RETRIES = 3
 TIMEOUT_SECONDS = 30
+
+# Telegram Settings
+TELEGRAM_MAX_ITEMS_DISPLAY = 30
+TELEGRAM_TIMEOUT_SECONDS = 15
 
 
 def fetch_models() -> dict:
@@ -272,6 +277,106 @@ def print_console_report(diff_result: dict, now_iso: str) -> None:
     print("==================================")
 
 
+def format_model_list_for_telegram(model_list: list[str]) -> str:
+    """Format model list into HTML lines with length and count limit protection."""
+    if not model_list:
+        return "• <i>None</i>"
+
+    lines = []
+    display_items = model_list[:TELEGRAM_MAX_ITEMS_DISPLAY]
+    for m in display_items:
+        lines.append(f"• <code>{html.escape(m)}</code>")
+
+    if len(model_list) > TELEGRAM_MAX_ITEMS_DISPLAY:
+        remaining = len(model_list) - TELEGRAM_MAX_ITEMS_DISPLAY
+        lines.append(f"<i>... and {remaining} more</i>")
+
+    return "\n".join(lines)
+
+
+def build_telegram_message(diff_result: dict, now_iso: str) -> str:
+    """Construct HTML formatted Telegram notification message."""
+    is_initial = diff_result["is_initial"]
+    cur_cnt = diff_result["current_count"]
+    prev_cnt = diff_result["previous_count"]
+    added = diff_result["added"]
+    removed = diff_result["removed"]
+    delta = cur_cnt - prev_cnt
+
+    # Format timestamp (e.g. 2026-08-23 10:09 UTC)
+    time_str = now_iso.replace("T", " ").split(".")[0] + " UTC"
+
+    lines = [
+        "🤖 <b>NVIDIA Free Endpoint Monitor</b>\n",
+        f"⏱ <b>Checked:</b> <code>{html.escape(time_str)}</code>",
+    ]
+
+    if is_initial:
+        lines.append(f"📊 <b>Initial Baseline:</b> <code>{cur_cnt}</code> models\n")
+        lines.append("🚀 <b>Initialized baseline snapshot.</b>")
+    else:
+        delta_sign = f"+{delta}" if delta > 0 else f"{delta}"
+        lines.append(f"📊 <b>Models:</b> <code>{prev_cnt} → {cur_cnt} ({delta_sign})</code>\n")
+
+        if added:
+            lines.append(f"🟢 <b>Added Models ({len(added)}):</b>")
+            lines.append(format_model_list_for_telegram(added))
+            lines.append("")
+
+        if removed:
+            lines.append(f"🔴 <b>Removed Models ({len(removed)}):</b>")
+            lines.append(format_model_list_for_telegram(removed))
+            lines.append("")
+
+        if not added and not removed:
+            lines.append("<i>No model changes detected.</i>")
+
+    gh_repo = os.getenv("GITHUB_REPOSITORY")
+    if gh_repo:
+        gh_server = os.getenv("GITHUB_SERVER_URL", "https://github.com")
+        repo_url = f"{gh_server}/{gh_repo}"
+        lines.append(f"\n🔗 <a href=\"{html.escape(repo_url)}\">View Repository</a>")
+
+    return "\n".join(lines).strip()
+
+
+def send_telegram_notification(diff_result: dict, now_iso: str) -> None:
+    """Send Telegram notification safely if credentials exist and changes occurred on existing baseline."""
+    # Strictly require existing baseline with detected changes
+    if diff_result.get("is_initial") or not diff_result.get("has_changes"):
+        return
+
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
+
+    if not bot_token or not chat_id:
+        print("[INFO] Telegram credentials not configured, skipping notification.")
+        return
+
+    try:
+        message_text = build_telegram_message(diff_result, now_iso)
+        url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+        payload = {
+            "chat_id": chat_id,
+            "text": message_text,
+            "parse_mode": "HTML",
+            "disable_web_page_preview": True,
+        }
+        data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(
+            url,
+            data=data,
+            headers={"Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=TELEGRAM_TIMEOUT_SECONDS) as resp:
+            if resp.status == 200:
+                print("[INFO] Telegram notification sent successfully.")
+            else:
+                print(f"[WARN] Telegram API responded with status {resp.status}")
+    except Exception as err:
+        print(f"[WARN] Failed to send Telegram notification: {err}")
+
+
 def main() -> None:
     now_iso = datetime.now(timezone.utc).isoformat()
 
@@ -287,9 +392,11 @@ def main() -> None:
     print_console_report(diff_result, now_iso)
     write_github_step_summary(diff_result, now_iso)
 
-    # 4. Save baseline ONLY if initial or changes detected
+    # 4. Save baseline & Send Notification
     if diff_result["is_initial"] or diff_result["has_changes"]:
         save_baseline(models, now_iso)
+        if not diff_result["is_initial"] and diff_result["has_changes"]:
+            send_telegram_notification(diff_result, now_iso)
     else:
         print("[INFO] No changes detected. Baseline file untouched.")
 

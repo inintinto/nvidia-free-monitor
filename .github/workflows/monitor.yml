@@ -28,6 +28,9 @@ jobs:
           python-version: "3.12"
 
       - name: Run monitor and compare baseline
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python src/monitor.py
 
