@@ -1,0 +1,78 @@
+name: Test Telegram Notification
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-telegram:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Send Test Telegram Message
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python - << 'EOF'
+          import json
+          import os
+          import sys
+          import urllib.error
+          import urllib.request
+
+          token = os.getenv("TELEGRAM_BOT_TOKEN")
+          chat_id = os.getenv("TELEGRAM_CHAT_ID")
+
+          if not token or not chat_id:
+              print("[ERROR] TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID secret is missing or empty.", file=sys.stderr)
+              sys.exit(1)
+
+          message = (
+              "🤖 <b>NVIDIA Free Endpoint Monitor</b>\n\n"
+              "✅ Telegram connectivity test successful.\n\n"
+              "GitHub Actions → Telegram is working.\n\n"
+              "<i>This is a temporary connectivity test.\n"
+              "No NVIDIA baseline was modified.</i>"
+          )
+
+          url = f"https://api.telegram.org/bot{token}/sendMessage"
+          payload = {
+              "chat_id": chat_id,
+              "text": message,
+              "parse_mode": "HTML",
+              "disable_web_page_preview": True,
+          }
+
+          data = json.dumps(payload).encode("utf-8")
+          req = urllib.request.Request(
+              url,
+              data=data,
+              headers={"Content-Type": "application/json"},
+          )
+
+          try:
+              with urllib.request.urlopen(req, timeout=15) as resp:
+                  if resp.status == 200:
+                      print("Telegram API request succeeded.")
+                  else:
+                      print(f"[ERROR] Telegram API responded with status {resp.status}", file=sys.stderr)
+                      sys.exit(1)
+          except urllib.error.HTTPError as err:
+              try:
+                  err_body = err.read().decode("utf-8")
+              except Exception:
+                  err_body = "Unable to read error body"
+              print(f"[ERROR] Telegram HTTP Error {err.code}: {err_body}", file=sys.stderr)
+              sys.exit(1)
+          except Exception as err:
+              print(f"[ERROR] Telegram request failed: {err}", file=sys.stderr)
+              sys.exit(1)
+          EOF
