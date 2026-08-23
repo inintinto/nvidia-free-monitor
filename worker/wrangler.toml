@@ -1,0 +1,11 @@
+name = "nvidia-free-monitor-bot"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+[vars]
+GITHUB_REPO = "inintinto/nvidia-free-monitor"
+GITHUB_BRANCH = "main"
+
+# Secrets required (configure via `wrangler secret put` or Cloudflare Dashboard):
+# - TELEGRAM_BOT_TOKEN
+# - TELEGRAM_WEBHOOK_SECRET_TOKEN (optional)

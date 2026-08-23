@@ -1,0 +1,28 @@
+{
+  "name": "nvidia-free-monitor-worker",
+  "version": "3.0.0",
+  "description": "Cloudflare Worker Telegram Bot frontend for NVIDIA Free Endpoint Monitor v3",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/**/*.test.ts"
+  },
+  "keywords": [
+    "nvidia",
+    "nim",
+    "telegram-bot",
+    "cloudflare-workers"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260702.1",
+    "@types/node": "^26.2.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "wrangler": "^3.101.0"
+  }
+}

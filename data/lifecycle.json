@@ -1,0 +1,118 @@
+{
+  "version": "3.0",
+  "updated_at": "2026-08-23T12:00:00Z",
+  "history": {
+    "deepseek-ai/deepseek-v4-flash-0731": {
+      "first_seen": "2026-07-31T08:00:00Z",
+      "free_since": "2026-07-31T08:00:00Z",
+      "last_seen": "2026-08-23T10:00:00Z",
+      "removed_at": null,
+      "is_currently_active": true,
+      "official_lifecycle": {
+        "official_status": "active",
+        "official_deprecation_date": null,
+        "sunset_date": null,
+        "deprecation_source_url": null,
+        "deprecation_notes": null
+      }
+    },
+    "deepseek-ai/deepseek-coder-6.7b-instruct": {
+      "first_seen": "2026-03-01T00:00:00Z",
+      "free_since": "2026-03-01T00:00:00Z",
+      "last_seen": "2026-08-23T10:00:00Z",
+      "removed_at": null,
+      "is_currently_active": true,
+      "official_lifecycle": {
+        "official_status": "active",
+        "official_deprecation_date": null,
+        "sunset_date": null,
+        "deprecation_source_url": null,
+        "deprecation_notes": null
+      }
+    },
+    "meta/llama-3.3-70b-instruct": {
+      "first_seen": "2026-04-15T00:00:00Z",
+      "free_since": "2026-04-15T00:00:00Z",
+      "last_seen": "2026-08-23T10:00:00Z",
+      "removed_at": null,
+      "is_currently_active": true,
+      "official_lifecycle": {
+        "official_status": "active",
+        "official_deprecation_date": null,
+        "sunset_date": null,
+        "deprecation_source_url": null,
+        "deprecation_notes": null
+      }
+    },
+    "meta/llama-3.1-405b-instruct": {
+      "first_seen": "2026-07-23T00:00:00Z",
+      "free_since": "2026-07-23T00:00:00Z",
+      "last_seen": "2026-08-23T10:00:00Z",
+      "removed_at": null,
+      "is_currently_active": true,
+      "official_lifecycle": {
+        "official_status": "active",
+        "official_deprecation_date": null,
+        "sunset_date": null,
+        "deprecation_source_url": null,
+        "deprecation_notes": null
+      }
+    },
+    "nvidia/nemotron-4-340b-instruct": {
+      "first_seen": "2026-06-10T00:00:00Z",
+      "free_since": "2026-06-10T00:00:00Z",
+      "last_seen": "2026-08-23T10:00:00Z",
+      "removed_at": null,
+      "is_currently_active": true,
+      "official_lifecycle": {
+        "official_status": "active",
+        "official_deprecation_date": null,
+        "sunset_date": null,
+        "deprecation_source_url": null,
+        "deprecation_notes": null
+      }
+    },
+    "google/gemma-2-27b-it": {
+      "first_seen": "2026-06-25T00:00:00Z",
+      "free_since": "2026-06-25T00:00:00Z",
+      "last_seen": "2026-08-23T10:00:00Z",
+      "removed_at": null,
+      "is_currently_active": true,
+      "official_lifecycle": {
+        "official_status": "active",
+        "official_deprecation_date": null,
+        "sunset_date": null,
+        "deprecation_source_url": null,
+        "deprecation_notes": null
+      }
+    },
+    "01-ai/yi-large": {
+      "first_seen": "2026-05-01T00:00:00Z",
+      "free_since": "2026-05-01T00:00:00Z",
+      "last_seen": "2026-08-23T10:00:00Z",
+      "removed_at": null,
+      "is_currently_active": true,
+      "official_lifecycle": {
+        "official_status": "active",
+        "official_deprecation_date": null,
+        "sunset_date": null,
+        "deprecation_source_url": null,
+        "deprecation_notes": null
+      }
+    },
+    "baai/bge-m3": {
+      "first_seen": "2026-02-15T00:00:00Z",
+      "free_since": "2026-02-15T00:00:00Z",
+      "last_seen": "2026-08-23T10:00:00Z",
+      "removed_at": null,
+      "is_currently_active": true,
+      "official_lifecycle": {
+        "official_status": "active",
+        "official_deprecation_date": null,
+        "sunset_date": null,
+        "deprecation_source_url": null,
+        "deprecation_notes": null
+      }
+    }
+  }
+}

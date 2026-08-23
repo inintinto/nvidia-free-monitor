@@ -1,0 +1,269 @@
+{
+  "version": "3.0",
+  "updated_at": "2026-08-23T12:00:00Z",
+  "models": {
+    "deepseek-ai/deepseek-v4-flash-0731": {
+      "model_id": "deepseek-ai/deepseek-v4-flash-0731",
+      "display_name": "DeepSeek V4 Flash 0731",
+      "aliases": [
+        "ds v4 flash",
+        "deepseek v4 flash",
+        "deepseek-v4-flash",
+        "ds v4 flash 0731",
+        "v4 flash"
+      ],
+      "platform": "NVIDIA NIM",
+      "provider": "DeepSeek AI",
+      "provider_id": "deepseek-ai",
+      "model_family": "DeepSeek-V4",
+      "architecture": "MoE",
+      "parameter_count": "Unknown",
+      "context_length": "128k",
+      "capabilities": [
+        "Chat",
+        "Reasoning",
+        "Coding"
+      ],
+      "free_endpoint": true,
+      "source_urls": {
+        "nvidia_nim": "https://build.nvidia.com/deepseek-ai/deepseek-v4-flash-0731",
+        "official_site": "https://www.deepseek.com"
+      },
+      "usage": {
+        "api_calls_24h": null,
+        "api_calls_daily": null,
+        "api_calls_7d": null,
+        "api_calls_30d": "3.2M",
+        "usage_updated_at": "2026-08-23T00:00:00Z",
+        "usage_source": "NVIDIA API Catalog Public Aggregate"
+      }
+    },
+    "deepseek-ai/deepseek-coder-6.7b-instruct": {
+      "model_id": "deepseek-ai/deepseek-coder-6.7b-instruct",
+      "display_name": "DeepSeek Coder 6.7B Instruct",
+      "aliases": [
+        "ds coder 6.7b",
+        "deepseek coder",
+        "deepseek-coder-6.7b"
+      ],
+      "platform": "NVIDIA NIM",
+      "provider": "DeepSeek AI",
+      "provider_id": "deepseek-ai",
+      "model_family": "DeepSeek-Coder",
+      "architecture": "Dense",
+      "parameter_count": "6.7B",
+      "context_length": "16k",
+      "capabilities": [
+        "Coding",
+        "Chat"
+      ],
+      "free_endpoint": true,
+      "source_urls": {
+        "nvidia_nim": "https://build.nvidia.com/deepseek-ai/deepseek-coder-6.7b-instruct"
+      },
+      "usage": {
+        "api_calls_24h": null,
+        "api_calls_daily": null,
+        "api_calls_7d": null,
+        "api_calls_30d": "1.1M",
+        "usage_updated_at": "2026-08-23T00:00:00Z",
+        "usage_source": "NVIDIA API Catalog Public Aggregate"
+      }
+    },
+    "meta/llama-3.3-70b-instruct": {
+      "model_id": "meta/llama-3.3-70b-instruct",
+      "display_name": "Llama 3.3 70B Instruct",
+      "aliases": [
+        "llama 3.3",
+        "llama 3.3 70b",
+        "meta llama 3.3",
+        "llama3.3-70b"
+      ],
+      "platform": "NVIDIA NIM",
+      "provider": "Meta",
+      "provider_id": "meta",
+      "model_family": "Llama-3.3",
+      "architecture": "Dense",
+      "parameter_count": "70B",
+      "context_length": "128k",
+      "capabilities": [
+        "Chat",
+        "Reasoning",
+        "Coding"
+      ],
+      "free_endpoint": true,
+      "source_urls": {
+        "nvidia_nim": "https://build.nvidia.com/meta/llama-3.3-70b-instruct"
+      },
+      "usage": {
+        "api_calls_24h": null,
+        "api_calls_daily": null,
+        "api_calls_7d": null,
+        "api_calls_30d": "5.8M",
+        "usage_updated_at": "2026-08-23T00:00:00Z",
+        "usage_source": "NVIDIA API Catalog Public Aggregate"
+      }
+    },
+    "meta/llama-3.1-405b-instruct": {
+      "model_id": "meta/llama-3.1-405b-instruct",
+      "display_name": "Llama 3.1 405B Instruct",
+      "aliases": [
+        "llama 3.1 405b",
+        "llama 405b",
+        "meta 405b"
+      ],
+      "platform": "NVIDIA NIM",
+      "provider": "Meta",
+      "provider_id": "meta",
+      "model_family": "Llama-3.1",
+      "architecture": "Dense",
+      "parameter_count": "405B",
+      "context_length": "128k",
+      "capabilities": [
+        "Chat",
+        "Reasoning",
+        "Coding"
+      ],
+      "free_endpoint": true,
+      "source_urls": {
+        "nvidia_nim": "https://build.nvidia.com/meta/llama-3.1-405b-instruct"
+      },
+      "usage": {
+        "api_calls_24h": null,
+        "api_calls_daily": null,
+        "api_calls_7d": null,
+        "api_calls_30d": "2.4M",
+        "usage_updated_at": "2026-08-23T00:00:00Z",
+        "usage_source": "NVIDIA API Catalog Public Aggregate"
+      }
+    },
+    "nvidia/nemotron-4-340b-instruct": {
+      "model_id": "nvidia/nemotron-4-340b-instruct",
+      "display_name": "Nemotron-4 340B Instruct",
+      "aliases": [
+        "nemotron",
+        "nemotron 4 340b",
+        "nemotron-4-340b",
+        "nv nemotron"
+      ],
+      "platform": "NVIDIA NIM",
+      "provider": "NVIDIA",
+      "provider_id": "nvidia",
+      "model_family": "Nemotron-4",
+      "architecture": "Dense",
+      "parameter_count": "340B",
+      "context_length": "4k",
+      "capabilities": [
+        "Chat",
+        "Reasoning"
+      ],
+      "free_endpoint": true,
+      "source_urls": {
+        "nvidia_nim": "https://build.nvidia.com/nvidia/nemotron-4-340b-instruct"
+      },
+      "usage": {
+        "api_calls_24h": null,
+        "api_calls_daily": null,
+        "api_calls_7d": null,
+        "api_calls_30d": "1.9M",
+        "usage_updated_at": "2026-08-23T00:00:00Z",
+        "usage_source": "NVIDIA API Catalog Public Aggregate"
+      }
+    },
+    "google/gemma-2-27b-it": {
+      "model_id": "google/gemma-2-27b-it",
+      "display_name": "Gemma 2 27B IT",
+      "aliases": [
+        "gemma 2",
+        "gemma 2 27b",
+        "google gemma 2"
+      ],
+      "platform": "NVIDIA NIM",
+      "provider": "Google",
+      "provider_id": "google",
+      "model_family": "Gemma-2",
+      "architecture": "Dense",
+      "parameter_count": "27B",
+      "context_length": "8k",
+      "capabilities": [
+        "Chat",
+        "Reasoning"
+      ],
+      "free_endpoint": true,
+      "source_urls": {
+        "nvidia_nim": "https://build.nvidia.com/google/gemma-2-27b-it"
+      },
+      "usage": {
+        "api_calls_24h": null,
+        "api_calls_daily": null,
+        "api_calls_7d": null,
+        "api_calls_30d": "850k",
+        "usage_updated_at": "2026-08-23T00:00:00Z",
+        "usage_source": "NVIDIA API Catalog Public Aggregate"
+      }
+    },
+    "01-ai/yi-large": {
+      "model_id": "01-ai/yi-large",
+      "display_name": "Yi Large",
+      "aliases": [
+        "yi large",
+        "01 yi large",
+        "yi-large"
+      ],
+      "platform": "NVIDIA NIM",
+      "provider": "01-ai",
+      "provider_id": "01-ai",
+      "model_family": "Yi",
+      "architecture": "Dense",
+      "parameter_count": "Unknown",
+      "context_length": "32k",
+      "capabilities": [
+        "Chat",
+        "Reasoning"
+      ],
+      "free_endpoint": true,
+      "source_urls": {
+        "nvidia_nim": "https://build.nvidia.com/01-ai/yi-large"
+      },
+      "usage": {
+        "api_calls_24h": null,
+        "api_calls_daily": null,
+        "api_calls_7d": null,
+        "api_calls_30d": "420k",
+        "usage_updated_at": "2026-08-23T00:00:00Z",
+        "usage_source": "NVIDIA API Catalog Public Aggregate"
+      }
+    },
+    "baai/bge-m3": {
+      "model_id": "baai/bge-m3",
+      "display_name": "BGE-M3 Embedding",
+      "aliases": [
+        "bge m3",
+        "bge-m3",
+        "baai bge m3"
+      ],
+      "platform": "NVIDIA NIM",
+      "provider": "BAAI",
+      "provider_id": "baai",
+      "model_family": "BGE",
+      "architecture": "Embedding",
+      "parameter_count": "570M",
+      "context_length": "8k",
+      "capabilities": [
+        "Embedding"
+      ],
+      "free_endpoint": true,
+      "source_urls": {
+        "nvidia_nim": "https://build.nvidia.com/baai/bge-m3"
+      },
+      "usage": {
+        "api_calls_24h": null,
+        "api_calls_daily": null,
+        "api_calls_7d": null,
+        "api_calls_30d": "1.5M",
+        "usage_updated_at": "2026-08-23T00:00:00Z",
+        "usage_source": "NVIDIA API Catalog Public Aggregate"
+      }
+    }
+  }
+}
