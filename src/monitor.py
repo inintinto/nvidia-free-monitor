@@ -1,84 +1,86 @@
 import json
-import re
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-MODELS_URL = "https://build.nvidia.com/models"
+NVIDIA_MODELS_URL = "https://integrate.api.nvidia.com/v1/models"
+OUTPUT_FILE = Path("data/nvidia_api_models.json")
 
-OUTPUT_FILE = Path("data/nvidia_models.json")
 
-
-def fetch_models_page() -> str:
+def fetch_models() -> dict:
     request = urllib.request.Request(
-        MODELS_URL,
+        NVIDIA_MODELS_URL,
         headers={
-            "User-Agent": "Mozilla/5.0 NVIDIA-Free-Endpoint-Monitor/1.0"
+            "User-Agent": "NVIDIA-Free-Endpoint-Monitor/1.0",
+            "Accept": "application/json",
         },
     )
 
     with urllib.request.urlopen(request, timeout=30) as response:
-        return response.read().decode("utf-8", errors="replace")
+        if response.status != 200:
+            raise RuntimeError(
+                f"NVIDIA API returned HTTP {response.status}"
+            )
 
-
-def extract_models(html: str) -> list[dict]:
-    """
-    First-stage parser.
-
-    NVIDIA's public models page is a dynamic web application, so this
-    intentionally stores the raw page snapshot for now. We will replace
-    this parser with the official structured data source after confirming
-    its current format.
-    """
-    models = []
-
-    # Keep a lightweight record of model names visible in the HTML.
-    # This is deliberately conservative; it is not yet the final parser.
-    pattern = re.compile(
-        r'"(?:modelId|model_id|slug|name)"\s*:\s*"([^"]+)"',
-        re.IGNORECASE,
-    )
-
-    seen = set()
-
-    for match in pattern.finditer(html):
-        value = match.group(1).strip()
-
-        if not value or value in seen:
-            continue
-
-        seen.add(value)
-        models.append({"name": value})
-
-    return models
+        return json.loads(
+            response.read().decode("utf-8")
+        )
 
 
 def main() -> None:
-    print("Fetching NVIDIA Models page...")
+    print("==================================")
+    print("NVIDIA API Model Collector")
+    print("==================================")
 
-    html = fetch_models_page()
+    payload = fetch_models()
 
-    print(f"Downloaded: {len(html):,} bytes")
+    raw_models = payload.get("data", [])
 
-    models = extract_models(html)
+    models = []
 
-    print(f"Candidate model records found: {len(models)}")
+    for item in raw_models:
+        model_id = item.get("id")
 
-    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+        if not model_id:
+            continue
+
+        models.append(
+            {
+                "id": model_id,
+                "owned_by": item.get("owned_by"),
+                "created": item.get("created"),
+            }
+        )
+
+    models.sort(key=lambda x: x["id"])
 
     result = {
         "checked_at": datetime.now(timezone.utc).isoformat(),
-        "source": MODELS_URL,
+        "source": NVIDIA_MODELS_URL,
         "model_count": len(models),
         "models": models,
     }
 
+    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+
     OUTPUT_FILE.write_text(
-        json.dumps(result, ensure_ascii=False, indent=2),
+        json.dumps(
+            result,
+            ensure_ascii=False,
+            indent=2,
+        ),
         encoding="utf-8",
     )
 
-    print(f"Saved snapshot: {OUTPUT_FILE}")
+    print(f"NVIDIA API returned: {len(raw_models)} records")
+    print(f"Valid model IDs: {len(models)}")
+    print(f"Saved: {OUTPUT_FILE}")
+
+    print("")
+    print("First 20 models:")
+
+    for model in models[:20]:
+        print(f"  - {model['id']}")
 
 
 if __name__ == "__main__":
