@@ -5,8 +5,12 @@ on:
   schedule:
     - cron: "*/30 * * * *"
 
+concurrency:
+  group: nvidia-monitor-baseline
+  cancel-in-progress: false
+
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   monitor:
@@ -15,26 +19,36 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
-      - name: Fetch NVIDIA models
+      - name: Run monitor and compare baseline
         run: |
           python src/monitor.py
 
-      - name: Show collected data
-        run: |
-          echo "=================================="
-          echo "Collected NVIDIA API model snapshot"
-          echo "=================================="
-          cat data/nvidia_api_models.json
-
-      - name: Upload snapshot
+      - name: Upload snapshot artifact
         uses: actions/upload-artifact@v6
         with:
           name: nvidia-api-model-snapshot
           path: data/nvidia_api_models.json
-          if-no-files-found: error
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit and push baseline changes
+        run: |
+          if [ -n "$(git status --porcelain data/nvidia_api_models.json)" ]; then
+            echo "Changes detected in data/nvidia_api_models.json. Committing..."
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git pull --rebase origin main
+            git add data/nvidia_api_models.json
+            git commit -m "Update NVIDIA models baseline: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git push origin main
+          else
+            echo "No changes in baseline. Skipping commit."
+          fi
