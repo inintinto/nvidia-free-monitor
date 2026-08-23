@@ -10,10 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test GitHub Actions
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch NVIDIA models
+        run: |
+          python src/monitor.py
+
+      - name: Show collected data
         run: |
           echo "=================================="
-          echo "NVIDIA Free Endpoint Monitor"
-          echo "GitHub Actions is working!"
-          echo "UTC time: $(date -u)"
+          echo "Collected NVIDIA model snapshot"
           echo "=================================="
+          cat data/nvidia_models.json
+
+      - name: Upload snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: nvidia-model-snapshot
+          path: data/nvidia_models.json
+          if-no-files-found: error
