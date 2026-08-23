@@ -72,8 +72,52 @@ export interface TelegramApiResponse<T = unknown> {
 }
 
 // -------------------------------------------------------------
-// Model Metadata & Catalog Types
+// Stage 3A Model Metadata & Catalog Types
 // -------------------------------------------------------------
+
+export interface ProviderInfo {
+  id: string;
+  name: string;
+}
+
+export interface ClassificationInfo {
+  family: string | null;
+  tier: "flagship" | "large" | "medium" | "small" | "embedding" | "specialized" | "standard" | "unknown";
+  model_type: "chat" | "reasoning" | "coding" | "vision" | "embedding" | "multimodal" | "specialized" | "unknown";
+  speed?: "fast" | "standard" | "unknown";
+}
+
+export interface ArchitectureInfo {
+  type: string | null; // Dense, MoE, Embedding
+  total_parameters: string | null;
+  active_parameters: string | null;
+  parameter_status: "official" | "observed" | "unknown";
+}
+
+export interface ContextInfo {
+  length: string | null;
+  max_output: string | null;
+  status: "official" | "observed" | "unknown";
+}
+
+export interface ReleaseInfo {
+  first_seen: string | null;
+  release_date: string | null;
+  status: "official" | "observed" | "unknown";
+}
+
+export interface LinksInfo {
+  nvidia: string | null;
+  official: string | null;
+  documentation: string | null;
+  model_card: string | null;
+}
+
+export interface SourceMetadata {
+  field_sources: Record<string, string>;
+  confidence: "high" | "medium" | "low" | "unknown";
+  last_verified: string | null;
+}
 
 export interface UsageStats {
   api_calls_24h: string | null;
@@ -103,22 +147,41 @@ export interface LifecycleRecord {
 }
 
 export interface ModelDetail {
-  short_index: number;
   model_id: string;
   display_name: string;
   aliases: string[];
+  slug: string;
   platform: string;
+
+  // Stage 3A Sub-Schemas
+  provider_info: ProviderInfo;
+  classification: ClassificationInfo;
+  arch_info: ArchitectureInfo;
+  context_info: ContextInfo;
+  release_info: ReleaseInfo;
+  links: LinksInfo;
+  source_metadata: SourceMetadata;
+
+  capabilities: string[];
+  free_endpoint: boolean;
+  usage: UsageStats;
+  lifecycle: LifecycleRecord;
+  short_index: number;
+
+  // Backward compatibility getters / aliases
   provider: string;
   provider_id: string;
   model_family: string | null;
   architecture: string | null;
   parameter_count: string | null;
   context_length: string | null;
-  capabilities: string[];
-  free_endpoint: boolean;
   source_urls: Record<string, string>;
-  usage: UsageStats;
-  lifecycle: LifecycleRecord;
+}
+
+export interface ProviderSummary {
+  provider_id: string;
+  display_name: string;
+  model_count: number;
 }
 
 export interface ResolveResult {
@@ -128,10 +191,4 @@ export interface ResolveResult {
   total_matches: number;
   filter_provider?: string;
   filter_capability?: string;
-}
-
-export interface ProviderSummary {
-  provider_id: string;
-  display_name: string;
-  model_count: number;
 }

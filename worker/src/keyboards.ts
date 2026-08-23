@@ -1,3 +1,9 @@
+import {
+  formatModelButtonText,
+  getCapabilityIcon,
+  getProviderIcon,
+  getProviderShortName,
+} from "./branding.ts";
 import type {
   ModelDetail,
   ProviderSummary,
@@ -5,38 +11,8 @@ import type {
   TelegramInlineKeyboardMarkup,
 } from "./types.ts";
 
-const PROVIDER_EMOJIS: Record<string, string> = {
-  nvidia: "🟢",
-  "deepseek-ai": "🔵",
-  meta: "🟣",
-  google: "🔴",
-  zhipuai: "🟠",
-  moonshotai: "🟡",
-  mistralai: "⚪",
-  "01-ai": "🔹",
-  baai: "🔸",
-};
-
-export function getProviderEmoji(providerId: string): string {
-  const norm = providerId.toLowerCase();
-  return PROVIDER_EMOJIS[norm] || "▫️";
-}
-
-const CAPABILITY_EMOJIS: Record<string, string> = {
-  Chat: "💬",
-  Reasoning: "🧠",
-  Coding: "💻",
-  Vision: "👁",
-  Audio: "🎵",
-  Image: "🖼",
-  Video: "🎬",
-  Embedding: "📦",
-  Agentic: "🤖",
-};
-
-export function getCapabilityEmoji(cap: string): string {
-  return CAPABILITY_EMOJIS[cap] || "✨";
-}
+export const getProviderEmoji = getProviderIcon;
+export const getCapabilityEmoji = getCapabilityIcon;
 
 // -------------------------------------------------------------
 // Level 1: Provider Menu Keyboard
@@ -46,9 +22,10 @@ export function buildProviderKeyboard(providers: ProviderSummary[]): TelegramInl
   let currentRow: TelegramInlineKeyboardButton[] = [];
 
   for (const prov of providers) {
-    const emoji = getProviderEmoji(prov.provider_id);
+    const icon = getProviderIcon(prov.provider_id);
+    const shortName = getProviderShortName(prov.provider_id);
     const btn: TelegramInlineKeyboardButton = {
-      text: `${emoji} ${prov.display_name} (${prov.model_count})`,
+      text: `${icon} ${shortName} · ${prov.model_count}`,
       callback_data: `c:p:${prov.provider_id}`,
     };
 
@@ -85,9 +62,9 @@ export function buildCapabilityKeyboard(
   let currentRow: TelegramInlineKeyboardButton[] = [];
 
   for (const cap of capabilities) {
-    const emoji = getCapabilityEmoji(cap);
+    const icon = getCapabilityIcon(cap);
     const btn: TelegramInlineKeyboardButton = {
-      text: `${emoji} ${cap}`,
+      text: `${icon} ${cap}`,
       callback_data: `c:c:${providerId}:${cap.toLowerCase()}`,
     };
 
@@ -137,9 +114,10 @@ export function buildModelListKeyboard(
   const pageModels = models.slice(start, start + pageSize);
 
   for (const model of pageModels) {
+    const text = formatModelButtonText(model);
     rows.push([
       {
-        text: `🔹 ${model.display_name}`,
+        text,
         callback_data: `c:d:${model.short_index}`,
       },
     ]);
@@ -163,10 +141,10 @@ export function buildModelListKeyboard(
     rows.push(navRow);
   }
 
-  // Back button to Capability menu
+  // Back button to capabilities
   rows.push([
     {
-      text: "🔙 Back to Capabilities (返回分类)",
+      text: "🔙 Back to Capabilities (返回能力筛选)",
       callback_data: `c:p:${providerId}`,
     },
   ]);
@@ -175,7 +153,7 @@ export function buildModelListKeyboard(
 }
 
 // -------------------------------------------------------------
-// Level 4: Model Detail Keyboard (Back + Official Links)
+// Level 4: Model Detail Keyboard
 // -------------------------------------------------------------
 export function buildModelDetailKeyboard(
   model: ModelDetail,
@@ -184,35 +162,35 @@ export function buildModelDetailKeyboard(
 ): TelegramInlineKeyboardMarkup {
   const rows: TelegramInlineKeyboardButton[][] = [];
 
-  // External Portal Links
+  // Official portal links row
   const linkRow: TelegramInlineKeyboardButton[] = [];
-  const nimUrl = model.source_urls.nvidia_nim || `https://build.nvidia.com/${model.model_id}`;
-  linkRow.push({
-    text: "🌐 NVIDIA NIM",
-    url: nimUrl,
-  });
-
-  if (model.source_urls.official_site) {
+  if (model.links?.nvidia || model.source_urls?.nvidia_nim) {
     linkRow.push({
-      text: "🔗 Official Site",
-      url: model.source_urls.official_site,
-    });
-  } else if (model.source_urls.huggingface) {
-    linkRow.push({
-      text: "🤗 HuggingFace",
-      url: model.source_urls.huggingface,
+      text: "🌐 NVIDIA NIM",
+      url: model.links?.nvidia || model.source_urls.nvidia_nim,
     });
   }
+  if (model.links?.official || model.source_urls?.official_site) {
+    linkRow.push({
+      text: "📚 Official Site",
+      url: model.links?.official || model.source_urls.official_site,
+    });
+  }
+  if (linkRow.length > 0) {
+    rows.push(linkRow);
+  }
 
-  rows.push(linkRow);
-
-  // Back button
+  // Back button routing
   const pId = backProviderId || model.provider_id;
   const cap = backCapability || "all";
   rows.push([
     {
-      text: "🔙 Back to Model List (返回列表)",
+      text: "🔙 Back to Model List (返回模型列表)",
       callback_data: `c:c:${pId}:${cap}`,
+    },
+    {
+      text: "🏠 Catalog Home (返回目录首页)",
+      callback_data: "c:r",
     },
   ]);
 
@@ -220,15 +198,16 @@ export function buildModelDetailKeyboard(
 }
 
 // -------------------------------------------------------------
-// Multiple Results Selection Keyboard for /model <query>
+// Multiple Match Disambiguation Keyboard
 // -------------------------------------------------------------
 export function buildMultipleResultsKeyboard(models: ModelDetail[]): TelegramInlineKeyboardMarkup {
   const rows: TelegramInlineKeyboardButton[][] = [];
 
   for (const model of models.slice(0, 8)) {
+    const text = formatModelButtonText(model);
     rows.push([
       {
-        text: `🔹 [${model.provider}] ${model.display_name}`,
+        text,
         callback_data: `c:d:${model.short_index}`,
       },
     ]);
@@ -236,10 +215,12 @@ export function buildMultipleResultsKeyboard(models: ModelDetail[]): TelegramInl
 
   rows.push([
     {
-      text: "📚 Browse All Providers (浏览完整目录)",
+      text: "🌐 Browse All in /models (浏览全部目录)",
       callback_data: "c:r",
     },
   ]);
 
   return { inline_keyboard: rows };
 }
+
+export const buildMultipleMatchKeyboard = buildMultipleResultsKeyboard;

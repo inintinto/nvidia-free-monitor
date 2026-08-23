@@ -146,6 +146,24 @@ class TestModelResolver(unittest.TestCase):
         self.assertIsNone(usage.api_calls_30d)
         self.assertEqual(usage.usage_source, "NVIDIA API Catalog Public Aggregate")
 
+    # 16. Stage 3B Python Branding System
+    def test_16_branding_system(self):
+        from src.catalog.branding import (
+            get_provider_brand,
+            get_provider_icon,
+            get_tier_icon,
+            get_capability_icon,
+        )
+        self.assertEqual(get_provider_icon("deepseek-ai"), "🐋")
+        self.assertEqual(get_provider_icon("nvidia"), "🟩")
+        self.assertEqual(get_provider_icon("meta"), "♾️")
+        self.assertEqual(get_provider_icon("google"), "🔵")
+        self.assertEqual(get_provider_icon("unknown-org"), "🌐")
+        self.assertEqual(get_tier_icon("flagship"), "👑")
+        self.assertEqual(get_tier_icon("embedding"), "🧬")
+        self.assertEqual(get_capability_icon("Reasoning"), "🧠")
+        self.assertEqual(get_capability_icon("Coding"), "💻")
+
 
 if __name__ == "__main__":
     unittest.main()

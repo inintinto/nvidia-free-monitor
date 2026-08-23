@@ -212,7 +212,7 @@ describe("Stage 2B Comprehensive Worker & Bot Tests", () => {
 
     assert.equal(mockClient.sentMessages.length, 1);
     const msg = mockClient.sentMessages[0];
-    assert.match(msg.text, /全球免费模型目录/);
+    assert.match(msg.text, /NVIDIA Free Models/);
     assert.ok(msg.markup?.inline_keyboard);
     const buttons = msg.markup.inline_keyboard.flat();
     assert.ok(buttons.some((b) => b.callback_data === "c:p:deepseek-ai"));
@@ -278,8 +278,8 @@ describe("Stage 2B Comprehensive Worker & Bot Tests", () => {
     const msg = mockClient.editedMessages[0];
     assert.match(msg.text, /DeepSeek V4 Flash 0731/);
     assert.match(msg.text, /deepseek-ai\/deepseek-v4-flash-0731/);
-    assert.match(msg.text, /Global NVIDIA API Calls/);
-    assert.match(msg.text, /3\.2M calls/);
+    assert.match(msg.text, /NVIDIA API 使用情况/);
+    assert.match(msg.text, /3\.2M/);
 
     const buttons = msg.markup?.inline_keyboard.flat() || [];
     assert.ok(buttons.some((b) => b.url?.includes("build.nvidia.com")));
@@ -299,7 +299,7 @@ describe("Stage 2B Comprehensive Worker & Bot Tests", () => {
       data: "c:r",
     });
     assert.equal(mockClient.editedMessages.length, 1);
-    assert.match(mockClient.editedMessages[0].text, /全球免费模型目录/);
+    assert.match(mockClient.editedMessages[0].text, /NVIDIA Free Models/);
   });
 
   // 6. /model Exact Test
@@ -365,7 +365,7 @@ describe("Stage 2B Comprehensive Worker & Bot Tests", () => {
     });
 
     assert.equal(mockClient.sentMessages.length, 1);
-    assert.match(mockClient.sentMessages[0].text, /找到 <b>2<\/b> 个与/);
+    assert.match(mockClient.sentMessages[0].text, /找到 2 个与/);
     const buttons = mockClient.sentMessages[0].markup?.inline_keyboard.flat() || [];
     assert.ok(buttons.some((b) => b.text.includes("Llama 3.3 70B")));
     assert.ok(buttons.some((b) => b.text.includes("Llama 3.1 405B")));
@@ -384,7 +384,7 @@ describe("Stage 2B Comprehensive Worker & Bot Tests", () => {
     });
 
     assert.equal(mockClient.sentMessages.length, 1);
-    assert.match(mockClient.sentMessages[0].text, /未找到与.*匹配的模型/);
+    assert.match(mockClient.sentMessages[0].text, /未找到匹配的模型/);
   });
 
   // 11. Callback Data Length Test (Must be <= 64 bytes)
@@ -452,7 +452,7 @@ describe("Stage 2B Comprehensive Worker & Bot Tests", () => {
   test("14. Global API Calls Null Handling Test", () => {
     const unreg = store.getModel("unregistered/new-ai-model")!;
     const html = formatModelDetailHtml(unreg);
-    assert.match(html, /Data not published by NVIDIA/);
+    assert.match(html, /官方未公开/);
   });
 
   // 15. init-commands Secret Protection Test

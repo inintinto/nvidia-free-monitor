@@ -1,0 +1,126 @@
+{
+  "version": "3.1",
+  "updated_at": "2026-08-23T15:35:00Z",
+  "providers": {
+    "deepseek-ai": {
+      "id": "deepseek-ai",
+      "name": "DeepSeek AI",
+      "short_name": "DeepSeek",
+      "icon": "🐋",
+      "official_url": "https://www.deepseek.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=deepseek-ai",
+      "description": "DeepSeek AI is an open-source AI lab dedicated to advancing AGI with high-efficiency reasoning and coding models.",
+      "status": "active"
+    },
+    "nvidia": {
+      "id": "nvidia",
+      "name": "NVIDIA",
+      "short_name": "NVIDIA",
+      "icon": "🟩",
+      "official_url": "https://www.nvidia.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=nvidia",
+      "description": "NVIDIA pioneered GPU-accelerated computing and produces the Nemotron series and NIM microservices.",
+      "status": "active"
+    },
+    "meta": {
+      "id": "meta",
+      "name": "Meta",
+      "short_name": "Meta",
+      "icon": "♾️",
+      "official_url": "https://llama.meta.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=meta",
+      "description": "Meta AI develops the open-source Llama family of foundation language models.",
+      "status": "active"
+    },
+    "google": {
+      "id": "google",
+      "name": "Google",
+      "short_name": "Google",
+      "icon": "🔵",
+      "official_url": "https://deepmind.google/technologies/gemma/",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=google",
+      "description": "Google DeepMind builds the Gemma family of lightweight, state-of-the-art open models.",
+      "status": "active"
+    },
+    "01-ai": {
+      "id": "01-ai",
+      "name": "01.AI",
+      "short_name": "01.AI",
+      "icon": "🟡",
+      "official_url": "https://www.01.ai",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=01-ai",
+      "description": "01.AI develops the bilingual Yi model family optimized for general reasoning and coding.",
+      "status": "active"
+    },
+    "baai": {
+      "id": "baai",
+      "name": "BAAI",
+      "short_name": "BAAI",
+      "icon": "🧬",
+      "official_url": "https://www.baai.ac.cn",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=baai",
+      "description": "Beijing Academy of Artificial Intelligence (BAAI) develops state-of-the-art BGE embedding models.",
+      "status": "active"
+    },
+    "mistralai": {
+      "id": "mistralai",
+      "name": "Mistral AI",
+      "short_name": "Mistral",
+      "icon": "🌊",
+      "official_url": "https://mistral.ai",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=mistralai",
+      "description": "Mistral AI builds efficient, open and customized generative AI models.",
+      "status": "active"
+    },
+    "cohere": {
+      "id": "cohere",
+      "name": "Cohere",
+      "short_name": "Cohere",
+      "icon": "🟣",
+      "official_url": "https://cohere.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=cohere",
+      "description": "Cohere provides enterprise-grade NLP and Command R/Rerank foundation models.",
+      "status": "active"
+    },
+    "moonshotai": {
+      "id": "moonshotai",
+      "name": "Moonshot AI",
+      "short_name": "Moonshot",
+      "icon": "🌙",
+      "official_url": "https://www.moonshot.cn",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=moonshotai",
+      "description": "Moonshot AI focuses on long-context processing with the Kimi model series.",
+      "status": "active"
+    },
+    "qwen": {
+      "id": "qwen",
+      "name": "Qwen",
+      "short_name": "Qwen",
+      "icon": "🐉",
+      "official_url": "https://github.com/QwenLM",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=qwen",
+      "description": "Alibaba Cloud develops the comprehensive Qwen multilingual foundation model family.",
+      "status": "active"
+    },
+    "microsoft": {
+      "id": "microsoft",
+      "name": "Microsoft",
+      "short_name": "Microsoft",
+      "icon": "🪟",
+      "official_url": "https://www.microsoft.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=microsoft",
+      "description": "Microsoft develops the Phi family of small language models.",
+      "status": "active"
+    },
+    "openai": {
+      "id": "openai",
+      "name": "OpenAI",
+      "short_name": "OpenAI",
+      "icon": "🟢",
+      "official_url": "https://openai.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=openai",
+      "description": "OpenAI creates leading frontier AI models like GPT and Whisper.",
+      "status": "active"
+    }
+  }
+}

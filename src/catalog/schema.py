@@ -103,28 +103,127 @@ class LifecycleRecord:
         }
 
 
+# -------------------------------------------------------------
+# Stage 3A Standardized Sub-Schemas
+# -------------------------------------------------------------
+
+@dataclass
+class ProviderInfo:
+    id: str = "unknown"
+    name: str = "Unknown"
+
+
+@dataclass
+class ClassificationInfo:
+    family: Optional[str] = None
+    tier: str = "standard"  # flagship, large, medium, small, embedding, specialized, unknown
+    model_type: str = "chat"  # chat, reasoning, coding, vision, embedding, multimodal
+    speed: str = "standard"  # fast, standard, unknown
+
+
+@dataclass
+class ArchitectureInfo:
+    type: Optional[str] = None  # Dense, MoE, Embedding, etc.
+    total_parameters: Optional[str] = None
+    active_parameters: Optional[str] = None
+    parameter_status: str = "unknown"  # official, observed, unknown
+
+
+@dataclass
+class ContextInfo:
+    length: Optional[str] = None
+    max_output: Optional[str] = None
+    status: str = "unknown"  # official, observed, unknown
+
+
+@dataclass
+class ReleaseInfo:
+    first_seen: Optional[str] = None
+    release_date: Optional[str] = None
+    status: str = "unknown"  # official, observed, unknown
+
+
+@dataclass
+class LinksInfo:
+    nvidia: Optional[str] = None
+    official: Optional[str] = None
+    documentation: Optional[str] = None
+    model_card: Optional[str] = None
+
+
+@dataclass
+class SourceMetadata:
+    field_sources: dict[str, str] = field(default_factory=dict)
+    confidence: str = "unknown"  # high, medium, low, unknown
+    last_verified: Optional[str] = None
+
+
+# -------------------------------------------------------------
+# Stage 3A Comprehensive ModelDetail
+# -------------------------------------------------------------
+
 @dataclass
 class ModelDetail:
-    """Rich Model Metadata and specifications."""
+    """Rich Model Metadata and specifications (Stage 3A Standardized)."""
     model_id: str
     display_name: str
     aliases: list[str] = field(default_factory=list)
+    slug: Optional[str] = None
     platform: str = "NVIDIA NIM"
-    provider: str = "Unknown"
-    provider_id: str = "unknown"
-    model_family: Optional[str] = None
-    architecture: Optional[str] = None
-    parameter_count: Optional[str] = None
-    context_length: Optional[str] = None
+
+    # Nested structured schemas
+    provider_info: ProviderInfo = field(default_factory=ProviderInfo)
+    classification: ClassificationInfo = field(default_factory=ClassificationInfo)
+    arch_info: ArchitectureInfo = field(default_factory=ArchitectureInfo)
+    context_info: ContextInfo = field(default_factory=ContextInfo)
+    release_info: ReleaseInfo = field(default_factory=ReleaseInfo)
+    links: LinksInfo = field(default_factory=LinksInfo)
+    source_metadata: SourceMetadata = field(default_factory=SourceMetadata)
+
     capabilities: list[str] = field(default_factory=lambda: ["Chat"])
     free_endpoint: bool = True
-    source_urls: dict[str, str] = field(default_factory=dict)
     usage: UsageStats = field(default_factory=UsageStats)
     lifecycle: LifecycleRecord = field(default_factory=lambda: LifecycleRecord(model_id=""))
 
     def __post_init__(self):
         if not self.lifecycle.model_id:
             self.lifecycle.model_id = self.model_id
+        if not self.slug:
+            self.slug = self.model_id.split("/")[-1] if "/" in self.model_id else self.model_id
+
+    # Backward compatibility properties
+    @property
+    def provider(self) -> str:
+        return self.provider_info.name
+
+    @property
+    def provider_id(self) -> str:
+        return self.provider_info.id
+
+    @property
+    def model_family(self) -> Optional[str]:
+        return self.classification.family
+
+    @property
+    def architecture(self) -> Optional[str]:
+        return self.arch_info.type
+
+    @property
+    def parameter_count(self) -> Optional[str]:
+        return self.arch_info.total_parameters
+
+    @property
+    def context_length(self) -> Optional[str]:
+        return self.context_info.length
+
+    @property
+    def source_urls(self) -> dict[str, str]:
+        urls = {}
+        if self.links.nvidia:
+            urls["nvidia_nim"] = self.links.nvidia
+        if self.links.official:
+            urls["official_site"] = self.links.official
+        return urls
 
     @classmethod
     def from_dict(
@@ -136,27 +235,127 @@ class ModelDetail:
         catalog = catalog_data or {}
         lifecycle_record = LifecycleRecord.from_dict(model_id, lifecycle_data)
 
-        # Infer default provider and display name if missing
+        # Default fallbacks
         default_provider_id = model_id.split("/")[0] if "/" in model_id else "nvidia"
         default_provider_name = default_provider_id.replace("-", " ").title()
         raw_name = model_id.split("/")[-1] if "/" in model_id else model_id
         default_display = raw_name.replace("-", " ").replace("_", " ").title()
 
+        # Parse provider info (support nested or flat)
+        p_raw = catalog.get("provider")
+        if isinstance(p_raw, dict):
+            provider_info = ProviderInfo(
+                id=p_raw.get("id", default_provider_id),
+                name=p_raw.get("name", default_provider_name),
+            )
+        elif isinstance(p_raw, str):
+            provider_info = ProviderInfo(
+                id=catalog.get("provider_id", default_provider_id),
+                name=p_raw,
+            )
+        else:
+            provider_info = ProviderInfo(id=default_provider_id, name=default_provider_name)
+
+        # Parse classification
+        c_raw = catalog.get("classification") or {}
+        classification = ClassificationInfo(
+            family=c_raw.get("family", catalog.get("model_family")),
+            tier=c_raw.get("tier", "standard"),
+            model_type=c_raw.get("model_type", "chat"),
+            speed=c_raw.get("speed", "standard"),
+        )
+
+        # Parse architecture
+        a_raw = catalog.get("architecture")
+        if isinstance(a_raw, dict):
+            arch_info = ArchitectureInfo(
+                type=a_raw.get("type"),
+                total_parameters=a_raw.get("total_parameters"),
+                active_parameters=a_raw.get("active_parameters"),
+                parameter_status=a_raw.get("parameter_status", "unknown"),
+            )
+        elif isinstance(a_raw, str):
+            arch_info = ArchitectureInfo(
+                type=a_raw,
+                total_parameters=catalog.get("parameter_count"),
+                active_parameters=catalog.get("parameter_count"),
+                parameter_status="official" if catalog.get("parameter_count") else "unknown",
+            )
+        else:
+            arch_info = ArchitectureInfo(
+                type=None,
+                total_parameters=catalog.get("parameter_count"),
+                active_parameters=catalog.get("parameter_count"),
+                parameter_status="unknown",
+            )
+
+        # Parse context
+        ctx_raw = catalog.get("context")
+        if isinstance(ctx_raw, dict):
+            context_info = ContextInfo(
+                length=ctx_raw.get("length"),
+                max_output=ctx_raw.get("max_output"),
+                status=ctx_raw.get("status", "unknown"),
+            )
+        else:
+            context_info = ContextInfo(
+                length=catalog.get("context_length"),
+                max_output=None,
+                status="official" if catalog.get("context_length") else "unknown",
+            )
+
+        # Parse release
+        rel_raw = catalog.get("release") or {}
+        release_info = ReleaseInfo(
+            first_seen=rel_raw.get("first_seen"),
+            release_date=rel_raw.get("release_date"),
+            status=rel_raw.get("status", "unknown"),
+        )
+
+        # Parse links
+        l_raw = catalog.get("links") or {}
+        old_urls = catalog.get("source_urls") or {}
+        links = LinksInfo(
+            nvidia=l_raw.get("nvidia", old_urls.get("nvidia_nim")),
+            official=l_raw.get("official", old_urls.get("official_site")),
+            documentation=l_raw.get("documentation"),
+            model_card=l_raw.get("model_card"),
+        )
+
+        # Parse source metadata
+        src_raw = catalog.get("source_metadata") or {}
+        source_metadata = SourceMetadata(
+            field_sources=src_raw.get("field_sources", {}),
+            confidence=src_raw.get("confidence", "unknown"),
+            last_verified=src_raw.get("last_verified"),
+        )
+
+        # Parse usage
+        ep_raw = catalog.get("endpoint") or {}
+        usage_data = catalog.get("usage") or {
+            "api_calls_24h": ep_raw.get("api_calls_24h"),
+            "api_calls_daily": ep_raw.get("api_calls_daily"),
+            "api_calls_7d": ep_raw.get("api_calls_7d"),
+            "api_calls_30d": ep_raw.get("api_calls_30d"),
+        }
+        usage = UsageStats.from_dict(usage_data)
+
         return cls(
             model_id=model_id,
             display_name=catalog.get("display_name", default_display),
             aliases=catalog.get("aliases", []),
+            slug=catalog.get("slug", raw_name),
             platform=catalog.get("platform", "NVIDIA NIM"),
-            provider=catalog.get("provider", default_provider_name),
-            provider_id=catalog.get("provider_id", default_provider_id),
-            model_family=catalog.get("model_family"),
-            architecture=catalog.get("architecture"),
-            parameter_count=catalog.get("parameter_count"),
-            context_length=catalog.get("context_length"),
+            provider_info=provider_info,
+            classification=classification,
+            arch_info=arch_info,
+            context_info=context_info,
+            release_info=release_info,
+            links=links,
+            source_metadata=source_metadata,
             capabilities=catalog.get("capabilities", ["Chat"]),
-            free_endpoint=catalog.get("free_endpoint", True),
-            source_urls=catalog.get("source_urls", {}),
-            usage=UsageStats.from_dict(catalog.get("usage")),
+            free_endpoint=catalog.get("free_endpoint", ep_raw.get("available", True)),
+            usage=usage,
             lifecycle=lifecycle_record,
         )
 
@@ -165,16 +364,47 @@ class ModelDetail:
             "model_id": self.model_id,
             "display_name": self.display_name,
             "aliases": self.aliases,
+            "slug": self.slug,
             "platform": self.platform,
-            "provider": self.provider,
-            "provider_id": self.provider_id,
-            "model_family": self.model_family,
-            "architecture": self.architecture,
-            "parameter_count": self.parameter_count,
-            "context_length": self.context_length,
+            "provider": {
+                "id": self.provider_info.id,
+                "name": self.provider_info.name,
+            },
+            "classification": {
+                "family": self.classification.family,
+                "tier": self.classification.tier,
+                "model_type": self.classification.model_type,
+                "speed": self.classification.speed,
+            },
+            "architecture": {
+                "type": self.arch_info.type,
+                "total_parameters": self.arch_info.total_parameters,
+                "active_parameters": self.arch_info.active_parameters,
+                "parameter_status": self.arch_info.parameter_status,
+            },
+            "context": {
+                "length": self.context_info.length,
+                "max_output": self.context_info.max_output,
+                "status": self.context_info.status,
+            },
             "capabilities": self.capabilities,
+            "release": {
+                "first_seen": self.release_info.first_seen,
+                "release_date": self.release_info.release_date,
+                "status": self.release_info.status,
+            },
+            "links": {
+                "nvidia": self.links.nvidia,
+                "official": self.links.official,
+                "documentation": self.links.documentation,
+                "model_card": self.links.model_card,
+            },
+            "source_metadata": {
+                "field_sources": self.source_metadata.field_sources,
+                "confidence": self.source_metadata.confidence,
+                "last_verified": self.source_metadata.last_verified,
+            },
             "free_endpoint": self.free_endpoint,
-            "source_urls": self.source_urls,
             "usage": self.usage.to_dict(),
         }
 

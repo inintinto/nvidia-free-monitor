@@ -1,4 +1,5 @@
 import { CatalogStore } from "./catalog.ts";
+import { BUNDLED_BASELINE, BUNDLED_CATALOG, BUNDLED_LIFECYCLE } from "./default_data.ts";
 import { GitHubDataLoader } from "./github_client.ts";
 import { BotCommandHandler } from "./handlers.ts";
 import { injectBotCommands } from "./menu.ts";
@@ -11,7 +12,11 @@ let globalDataLoader: GitHubDataLoader | null = null;
 
 async function getOrInitCatalogStore(env: Env): Promise<CatalogStore> {
   if (!globalStore) {
-    globalStore = new CatalogStore();
+    globalStore = new CatalogStore(
+      BUNDLED_CATALOG as { models?: Record<string, Record<string, unknown>> },
+      BUNDLED_LIFECYCLE as { history?: Record<string, Record<string, unknown>> },
+      BUNDLED_BASELINE as { models?: Array<{ id: string; owned_by?: string }> }
+    );
   }
 
   if (!globalDataLoader) {
