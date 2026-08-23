@@ -23,14 +23,13 @@ export function formatModelDetailHtml(model: ModelDetail): string {
 
   // 1. Header & Identity
   const pIcon = getProviderIcon(model.provider_id);
-  const tIcon = getTierIcon(model.classification?.tier);
   const displayName = escapeHtml(model.display_name);
   const pName = escapeHtml(model.provider || getProviderDisplayName(model.provider_id));
   const family = model.classification?.family || model.model_family;
   const familyText = family ? ` · ${escapeHtml(family)}` : "";
 
   lines.push(`━━━━━━━━━━━━━━━━━━━━`);
-  lines.push(`${pIcon} ${tIcon} <b>${displayName}</b>`);
+  lines.push(`${pIcon} <b>${displayName}</b>`);
   lines.push(`<i>${pName}${familyText}</i>\n`);
 
   // Availability & Capability Subtitle

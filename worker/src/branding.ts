@@ -267,14 +267,12 @@ export function formatSourceLabel(source?: string | null): string {
 // -------------------------------------------------------------
 
 export function getModelBadge(model: ModelDetail): string {
-  const pIcon = getProviderIcon(model.provider_id);
-  const tIcon = getTierIcon(model.classification?.tier);
-  return `${pIcon} ${tIcon}`.trim();
+  return getProviderIcon(model.provider_id);
 }
 
 export function getModelTitle(model: ModelDetail): string {
-  const badge = getModelBadge(model);
-  return `${badge} ${model.display_name}`;
+  const pIcon = getProviderIcon(model.provider_id);
+  return `${pIcon} ${model.display_name}`;
 }
 
 export function getTierBadge(model: ModelDetail): string {
@@ -290,8 +288,13 @@ export function getCapabilityBadges(model: ModelDetail): string {
   return caps.map((c) => getCapabilityZhLabel(c)).join(" · ");
 }
 
-export function formatModelButtonText(model: ModelDetail): string {
+export function formatModelButtonText(model: ModelDetail, inProviderView = false): string {
+  if (inProviderView) {
+    // Inside a specific provider menu: show clean tier icon only
+    const tIcon = getTierIcon(model.classification?.tier);
+    return `${tIcon} ${model.display_name}`;
+  }
+  // Global / search view: show provider icon only
   const pIcon = getProviderIcon(model.provider_id);
-  const tIcon = getTierIcon(model.classification?.tier);
-  return `${pIcon} ${tIcon} ${model.display_name}`;
+  return `${pIcon} ${model.display_name}`;
 }

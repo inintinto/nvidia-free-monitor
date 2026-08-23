@@ -33,7 +33,7 @@ test("Stage 3D: Model Detail Card 2.0 & Formatter Tests", async (t) => {
 
   await t.test("2. Provider Branding Icon & Display", () => {
     const html = formatModelDetailHtml(dsModel);
-    assert.ok(html.includes("🐋 👑 <b>DeepSeek V4 Flash 0731</b>"));
+    assert.ok(html.includes("🐋 <b>DeepSeek V4 Flash 0731</b>"));
     assert.ok(html.includes("• <b>提供商：</b> 🐋 <code>DeepSeek AI</code>"));
   });
 

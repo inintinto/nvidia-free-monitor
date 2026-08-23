@@ -112,9 +112,10 @@ export function buildModelListKeyboard(
 
   const start = page * pageSize;
   const pageModels = models.slice(start, start + pageSize);
+  const inProviderView = providerId !== "all";
 
   for (const model of pageModels) {
-    const text = formatModelButtonText(model);
+    const text = formatModelButtonText(model, inProviderView);
     rows.push([
       {
         text,

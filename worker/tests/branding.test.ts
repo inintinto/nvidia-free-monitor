@@ -97,25 +97,28 @@ test("Stage 3B: Provider Branding & Model Classification Tests", async (t) => {
     assert.ok(dsModel);
 
     const badge = getModelBadge(dsModel);
-    assert.equal(badge, "🐋 👑");
+    assert.equal(badge, "🐋");
 
     const title = getModelTitle(dsModel);
-    assert.equal(title, "🐋 👑 DeepSeek V4 Flash 0731");
+    assert.equal(title, "🐋 DeepSeek V4 Flash 0731");
 
     const tierBadge = getTierBadge(dsModel);
     assert.equal(tierBadge, "👑 旗舰模型");
 
-    const btnText = formatModelButtonText(dsModel);
-    assert.equal(btnText, "🐋 👑 DeepSeek V4 Flash 0731");
+    const globalBtnText = formatModelButtonText(dsModel, false);
+    assert.equal(globalBtnText, "🐋 DeepSeek V4 Flash 0731");
+
+    const providerBtnText = formatModelButtonText(dsModel, true);
+    assert.equal(providerBtnText, "👑 DeepSeek V4 Flash 0731");
   });
 
   await t.test("9. Llama 405B & BGE-M3 Classification Badges", () => {
     const llama405 = store.getModel("meta/llama-3.1-405b-instruct");
     assert.ok(llama405);
-    assert.equal(getModelBadge(llama405), "♾️ 👑");
+    assert.equal(getModelBadge(llama405), "♾️");
 
     const bge = store.getModel("baai/bge-m3");
     assert.ok(bge);
-    assert.equal(getModelBadge(bge), "🧬 🧬");
+    assert.equal(getModelBadge(bge), "🧬");
   });
 });
