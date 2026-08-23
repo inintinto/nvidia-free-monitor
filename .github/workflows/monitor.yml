@@ -1,40 +1,13 @@
-name: NVIDIA Free Endpoint Monitor
-
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "*/30 * * * *"
-
-permissions:
-  contents: read
-
-jobs:
-  monitor:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-
-      - name: Fetch NVIDIA models
-        run: |
-          python src/monitor.py
-
       - name: Show collected data
         run: |
           echo "=================================="
-          echo "Collected NVIDIA model snapshot"
+          echo "Collected NVIDIA API model snapshot"
           echo "=================================="
-          cat data/nvidia_models.json
+          cat data/nvidia_api_models.json
 
       - name: Upload snapshot
         uses: actions/upload-artifact@v6
         with:
-          name: nvidia-model-snapshot
-          path: data/nvidia_models.json
+          name: nvidia-api-model-snapshot
+          path: data/nvidia_api_models.json
           if-no-files-found: error
