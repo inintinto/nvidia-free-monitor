@@ -24,7 +24,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderBrand> = {
     id: "nvidia",
     name: "NVIDIA",
     short_name: "NVIDIA",
-    icon: "🟩",
+    icon: "🦾",
     official_url: "https://www.nvidia.com",
     nvidia_url: "https://build.nvidia.com/explore/discover?owner=nvidia",
     description: "NVIDIA Nemotron 官方系列与 NIM 云微服务。",
@@ -42,7 +42,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderBrand> = {
     id: "google",
     name: "Google",
     short_name: "Google",
-    icon: "🔵",
+    icon: "🕊️",
     official_url: "https://deepmind.google/technologies/gemma/",
     nvidia_url: "https://build.nvidia.com/explore/discover?owner=google",
     description: "Google DeepMind 开源 Gemma 系列高效轻量模型。",
@@ -51,7 +51,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderBrand> = {
     id: "01-ai",
     name: "01.AI",
     short_name: "01.AI",
-    icon: "🟡",
+    icon: "🐯",
     official_url: "https://www.01.ai",
     nvidia_url: "https://build.nvidia.com/explore/discover?owner=01-ai",
     description: "零一万物中英双语 Yi 系列高精度通用大模型。",
@@ -69,7 +69,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderBrand> = {
     id: "mistralai",
     name: "Mistral AI",
     short_name: "Mistral",
-    icon: "🌊",
+    icon: "🌪️",
     official_url: "https://mistral.ai",
     nvidia_url: "https://build.nvidia.com/explore/discover?owner=mistralai",
     description: "Mistral AI 欧陆开源与定制化生成式 AI 模型。",
@@ -78,7 +78,7 @@ export const PROVIDER_REGISTRY: Record<string, ProviderBrand> = {
     id: "cohere",
     name: "Cohere",
     short_name: "Cohere",
-    icon: "🟣",
+    icon: "🪶",
     official_url: "https://cohere.com",
     nvidia_url: "https://build.nvidia.com/explore/discover?owner=cohere",
     description: "Cohere 企业级 Command R 与 Rerank 精排模型。",
@@ -114,10 +114,37 @@ export const PROVIDER_REGISTRY: Record<string, ProviderBrand> = {
     id: "openai",
     name: "OpenAI",
     short_name: "OpenAI",
-    icon: "🟢",
+    icon: "🌀",
     official_url: "https://openai.com",
     nvidia_url: "https://build.nvidia.com/explore/discover?owner=openai",
     description: "OpenAI 领先前沿多模态大模型。",
+  },
+  anthropic: {
+    id: "anthropic",
+    name: "Anthropic",
+    short_name: "Anthropic",
+    icon: "🧠",
+    official_url: "https://www.anthropic.com",
+    nvidia_url: "https://build.nvidia.com/explore/discover?owner=anthropic",
+    description: "Anthropic Claude 系列安全对齐前沿大模型。",
+  },
+  xai: {
+    id: "xai",
+    name: "xAI",
+    short_name: "xAI",
+    icon: "🕏",
+    official_url: "https://x.ai",
+    nvidia_url: "https://build.nvidia.com/explore/discover?owner=xai",
+    description: "xAI Grok 系列前沿推理大模型。",
+  },
+  bytedance: {
+    id: "bytedance",
+    name: "ByteDance",
+    short_name: "ByteDance",
+    icon: "🪩",
+    official_url: "https://www.volcengine.com",
+    nvidia_url: "https://build.nvidia.com/explore/discover?owner=bytedance",
+    description: "字节跳动豆包大模型家族。",
   },
 };
 
@@ -171,19 +198,14 @@ export function getProviderShortName(providerId: string): string {
 // -------------------------------------------------------------
 
 export const TIER_ICONS: Record<string, { icon: string; label: string; zh_label: string }> = {
-  flagship: { icon: "👑", label: "Flagship", zh_label: "旗舰模型" },
-  large: { icon: "🏛️", label: "Large", zh_label: "大型模型" },
-  balanced: { icon: "⚖️", label: "Balanced", zh_label: "均衡模型" },
-  medium: { icon: "⚡", label: "Medium", zh_label: "中型模型" },
-  small: { icon: "🔹", label: "Small", zh_label: "轻量模型" },
-  fast: { icon: "⚡", label: "Fast", zh_label: "高速模型" },
-  embedding: { icon: "🧬", label: "Embedding", zh_label: "向量模型" },
-  reasoning: { icon: "🧠", label: "Reasoning", zh_label: "推理模型" },
-  coding: { icon: "💻", label: "Coding", zh_label: "代码模型" },
-  vision: { icon: "👁️", label: "Vision", zh_label: "视觉模型" },
-  specialized: { icon: "🛠️", label: "Specialized", zh_label: "专用模型" },
-  standard: { icon: "🔹", label: "Standard", zh_label: "标准模型" },
-  unknown: { icon: "📦", label: "Unknown", zh_label: "基础模型" },
+  flagship: { icon: "👑", label: "Flagship", zh_label: "旗舰" },
+  large: { icon: "🏛️", label: "Large", zh_label: "大型" },
+  balanced: { icon: "⚖️", label: "Balanced", zh_label: "均衡" },
+  medium: { icon: "⚙️", label: "Medium", zh_label: "中型" },
+  small: { icon: "🪶", label: "Small", zh_label: "轻量" },
+  embedding: { icon: "🧬", label: "Embedding", zh_label: "向量" },
+  specialized: { icon: "🛠️", label: "Specialized", zh_label: "专用" },
+  unknown: { icon: "📦", label: "Unknown", zh_label: "未分类" },
 };
 
 export function getTierIcon(tier?: string | null): string {
@@ -199,15 +221,26 @@ export function getTierLabel(tier?: string | null): string {
 }
 
 export function getTierZhLabel(tier?: string | null): string {
-  if (!tier) return "基础模型";
+  if (!tier) return "未分类";
   const norm = tier.toLowerCase().trim();
-  return TIER_ICONS[norm]?.zh_label || "基础模型";
+  return TIER_ICONS[norm]?.zh_label || "未分类";
 }
 
+// -------------------------------------------------------------
+// Speed Branding (Decoupled from Tier)
+// -------------------------------------------------------------
+
+export const SPEED_BADGES: Record<string, string> = {
+  fast: "⚡ 高速",
+  standard: "◽ 标准",
+  slow: "🐢 慢速",
+  unknown: "❔ 未知",
+};
+
 export function getSpeedBadge(speed?: string | null): string {
-  if (speed === "fast") return "⚡ 高速";
-  if (speed === "standard") return "🔹 标准";
-  return "官方未公开";
+  if (!speed) return SPEED_BADGES.unknown;
+  const norm = speed.toLowerCase().trim();
+  return SPEED_BADGES[norm] || SPEED_BADGES.unknown;
 }
 
 // -------------------------------------------------------------
@@ -250,6 +283,24 @@ export function getCapabilityZhLabel(cap: string): string {
 }
 
 // -------------------------------------------------------------
+// Status Branding (Status Only)
+// -------------------------------------------------------------
+
+export const STATUS_ICONS: Record<string, { icon: string; label: string; zh_label: string }> = {
+  active: { icon: "🟢", label: "Active", zh_label: "当前可用" },
+  observed_removed: { icon: "🟡", label: "Observed Removed", zh_label: "监控观测下线" },
+  deprecated: { icon: "🔴", label: "Officially Deprecated", zh_label: "官方已废弃" },
+  unknown: { icon: "⚪", label: "Unknown", zh_label: "状态未知" },
+};
+
+export function getStatusBadge(status?: string | null): { icon: string; zh_label: string; text: string } {
+  if (!status) return { icon: "⚪", zh_label: "状态未知", text: "⚪ 状态未知" };
+  const norm = status.toLowerCase().trim();
+  const info = STATUS_ICONS[norm] || STATUS_ICONS.unknown;
+  return { icon: info.icon, zh_label: info.zh_label, text: `${info.icon} ${info.zh_label}` };
+}
+
+// -------------------------------------------------------------
 // Source & Confidence Helpers
 // -------------------------------------------------------------
 
@@ -263,16 +314,19 @@ export function formatSourceLabel(source?: string | null): string {
 }
 
 // -------------------------------------------------------------
-// Model Badge & Display Helpers
+// Unified Model Title & Badge Helpers (Provider + Tier + Name)
 // -------------------------------------------------------------
 
 export function getModelBadge(model: ModelDetail): string {
-  return getProviderIcon(model.provider_id);
+  const pIcon = getProviderIcon(model.provider_id);
+  const tIcon = getTierIcon(model.classification?.tier);
+  return `${pIcon} ${tIcon}`.trim();
 }
 
 export function getModelTitle(model: ModelDetail): string {
   const pIcon = getProviderIcon(model.provider_id);
-  return `${pIcon} ${model.display_name}`;
+  const tIcon = getTierIcon(model.classification?.tier);
+  return `${pIcon} ${tIcon} ${model.display_name}`;
 }
 
 export function getTierBadge(model: ModelDetail): string {
@@ -288,13 +342,8 @@ export function getCapabilityBadges(model: ModelDetail): string {
   return caps.map((c) => getCapabilityZhLabel(c)).join(" · ");
 }
 
-export function formatModelButtonText(model: ModelDetail, inProviderView = false): string {
-  if (inProviderView) {
-    // Inside a specific provider menu: show clean tier icon only
-    const tIcon = getTierIcon(model.classification?.tier);
-    return `${tIcon} ${model.display_name}`;
-  }
-  // Global / search view: show provider icon only
+export function formatModelButtonText(model: ModelDetail): string {
   const pIcon = getProviderIcon(model.provider_id);
-  return `${pIcon} ${model.display_name}`;
+  const tIcon = getTierIcon(model.classification?.tier);
+  return `${pIcon} ${tIcon} ${model.display_name}`;
 }

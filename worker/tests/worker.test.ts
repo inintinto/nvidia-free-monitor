@@ -278,7 +278,7 @@ describe("Stage 2B Comprehensive Worker & Bot Tests", () => {
     const msg = mockClient.editedMessages[0];
     assert.match(msg.text, /DeepSeek V4 Flash 0731/);
     assert.match(msg.text, /deepseek-ai\/deepseek-v4-flash-0731/);
-    assert.match(msg.text, /NVIDIA API 使用情况/);
+    assert.match(msg.text, /NVIDIA 使用统计/);
     assert.match(msg.text, /3\.2M/);
 
     const buttons = msg.markup?.inline_keyboard.flat() || [];

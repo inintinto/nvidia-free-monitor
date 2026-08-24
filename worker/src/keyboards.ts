@@ -43,7 +43,7 @@ export function buildProviderKeyboard(providers: ProviderSummary[]): TelegramInl
   // All Models entry
   rows.push([
     {
-      text: "🌐 All Models (全部模型)",
+      text: "🌐 全部模型",
       callback_data: "c:p:all",
     },
   ]);
@@ -82,7 +82,7 @@ export function buildCapabilityKeyboard(
   // All capabilities under this provider
   rows.push([
     {
-      text: "📋 All (全部能力)",
+      text: "📋 全部能力 (All Capabilities)",
       callback_data: `c:c:${providerId}:all`,
     },
   ]);
@@ -90,7 +90,7 @@ export function buildCapabilityKeyboard(
   // Back button
   rows.push([
     {
-      text: "🔙 Back to Providers (返回提供商)",
+      text: "🔙 返回提供商 (Back to Providers)",
       callback_data: "c:r",
     },
   ]);
@@ -112,10 +112,9 @@ export function buildModelListKeyboard(
 
   const start = page * pageSize;
   const pageModels = models.slice(start, start + pageSize);
-  const inProviderView = providerId !== "all";
 
   for (const model of pageModels) {
-    const text = formatModelButtonText(model, inProviderView);
+    const text = formatModelButtonText(model);
     rows.push([
       {
         text,
@@ -128,13 +127,13 @@ export function buildModelListKeyboard(
   const navRow: TelegramInlineKeyboardButton[] = [];
   if (page > 0) {
     navRow.push({
-      text: "⬅️ Prev",
+      text: "⬅️ 上一页",
       callback_data: `c:l:${providerId}:${capability}:${page - 1}`,
     });
   }
   if (start + pageSize < models.length) {
     navRow.push({
-      text: "Next ➡️",
+      text: "下一页 ➡️",
       callback_data: `c:l:${providerId}:${capability}:${page + 1}`,
     });
   }
@@ -145,7 +144,7 @@ export function buildModelListKeyboard(
   // Back button to capabilities
   rows.push([
     {
-      text: "🔙 Back to Capabilities (返回能力筛选)",
+      text: "🔙 返回能力筛选 (Back to Capabilities)",
       callback_data: `c:p:${providerId}`,
     },
   ]);
@@ -173,7 +172,7 @@ export function buildModelDetailKeyboard(
   }
   if (model.links?.official || model.source_urls?.official_site) {
     linkRow.push({
-      text: "📚 Official Site",
+      text: "🏠 官方网站",
       url: model.links?.official || model.source_urls.official_site,
     });
   }
@@ -186,11 +185,11 @@ export function buildModelDetailKeyboard(
   const cap = backCapability || "all";
   rows.push([
     {
-      text: "🔙 Back to Model List (返回模型列表)",
+      text: "🔙 返回模型列表 (Back to Model List)",
       callback_data: `c:c:${pId}:${cap}`,
     },
     {
-      text: "🏠 Catalog Home (返回目录首页)",
+      text: "🏠 目录首页 (Catalog Home)",
       callback_data: "c:r",
     },
   ]);
@@ -216,7 +215,7 @@ export function buildMultipleResultsKeyboard(models: ModelDetail[]): TelegramInl
 
   rows.push([
     {
-      text: "🌐 Browse All in /models (浏览全部目录)",
+      text: "🌐 浏览全部目录 (/models)",
       callback_data: "c:r",
     },
   ]);

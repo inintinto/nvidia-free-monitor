@@ -90,7 +90,7 @@
       },
       "classification": {
         "family": "DeepSeek-Coder",
-        "tier": "standard",
+        "tier": "small",
         "model_type": "coding",
         "speed": "standard"
       },

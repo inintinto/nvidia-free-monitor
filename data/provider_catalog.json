@@ -1,6 +1,6 @@
 {
-  "version": "3.1",
-  "updated_at": "2026-08-23T15:35:00Z",
+  "version": "3.2",
+  "updated_at": "2026-08-24T00:15:00Z",
   "providers": {
     "deepseek-ai": {
       "id": "deepseek-ai",
@@ -9,17 +9,17 @@
       "icon": "🐋",
       "official_url": "https://www.deepseek.com",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=deepseek-ai",
-      "description": "DeepSeek AI is an open-source AI lab dedicated to advancing AGI with high-efficiency reasoning and coding models.",
+      "description": "DeepSeek AI 致力于推进高效率推理与代码大模型研发。",
       "status": "active"
     },
     "nvidia": {
       "id": "nvidia",
       "name": "NVIDIA",
       "short_name": "NVIDIA",
-      "icon": "🟩",
+      "icon": "🦾",
       "official_url": "https://www.nvidia.com",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=nvidia",
-      "description": "NVIDIA pioneered GPU-accelerated computing and produces the Nemotron series and NIM microservices.",
+      "description": "NVIDIA Nemotron 官方系列与 NIM 云微服务。",
       "status": "active"
     },
     "meta": {
@@ -29,27 +29,27 @@
       "icon": "♾️",
       "official_url": "https://llama.meta.com",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=meta",
-      "description": "Meta AI develops the open-source Llama family of foundation language models.",
+      "description": "Meta AI 开源 Llama 全球主流基础大模型家族。",
       "status": "active"
     },
     "google": {
       "id": "google",
       "name": "Google",
       "short_name": "Google",
-      "icon": "🔵",
+      "icon": "🕊️",
       "official_url": "https://deepmind.google/technologies/gemma/",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=google",
-      "description": "Google DeepMind builds the Gemma family of lightweight, state-of-the-art open models.",
+      "description": "Google DeepMind 开源 Gemma 系列高效轻量模型。",
       "status": "active"
     },
     "01-ai": {
       "id": "01-ai",
       "name": "01.AI",
       "short_name": "01.AI",
-      "icon": "🟡",
+      "icon": "🐯",
       "official_url": "https://www.01.ai",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=01-ai",
-      "description": "01.AI develops the bilingual Yi model family optimized for general reasoning and coding.",
+      "description": "零一万物中英双语 Yi 系列高精度通用大模型。",
       "status": "active"
     },
     "baai": {
@@ -59,27 +59,27 @@
       "icon": "🧬",
       "official_url": "https://www.baai.ac.cn",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=baai",
-      "description": "Beijing Academy of Artificial Intelligence (BAAI) develops state-of-the-art BGE embedding models.",
+      "description": "北京智源人工智能研究院 BGE 向量与嵌入模型。",
       "status": "active"
     },
     "mistralai": {
       "id": "mistralai",
       "name": "Mistral AI",
       "short_name": "Mistral",
-      "icon": "🌊",
+      "icon": "🌪️",
       "official_url": "https://mistral.ai",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=mistralai",
-      "description": "Mistral AI builds efficient, open and customized generative AI models.",
+      "description": "Mistral AI 欧陆开源与定制化生成式 AI 模型。",
       "status": "active"
     },
     "cohere": {
       "id": "cohere",
       "name": "Cohere",
       "short_name": "Cohere",
-      "icon": "🟣",
+      "icon": "🪶",
       "official_url": "https://cohere.com",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=cohere",
-      "description": "Cohere provides enterprise-grade NLP and Command R/Rerank foundation models.",
+      "description": "Cohere 企业级 Command R 与 Rerank 精排模型。",
       "status": "active"
     },
     "moonshotai": {
@@ -89,7 +89,7 @@
       "icon": "🌙",
       "official_url": "https://www.moonshot.cn",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=moonshotai",
-      "description": "Moonshot AI focuses on long-context processing with the Kimi model series.",
+      "description": "月之暗面 Kimi 超长上下文大语言模型。",
       "status": "active"
     },
     "qwen": {
@@ -99,7 +99,7 @@
       "icon": "🐉",
       "official_url": "https://github.com/QwenLM",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=qwen",
-      "description": "Alibaba Cloud develops the comprehensive Qwen multilingual foundation model family.",
+      "description": "阿里云通义千问多语言全模态开源大模型系列。",
       "status": "active"
     },
     "microsoft": {
@@ -109,17 +109,47 @@
       "icon": "🪟",
       "official_url": "https://www.microsoft.com",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=microsoft",
-      "description": "Microsoft develops the Phi family of small language models.",
+      "description": "微软 Phi 高性能小型语言模型系列。",
       "status": "active"
     },
     "openai": {
       "id": "openai",
       "name": "OpenAI",
       "short_name": "OpenAI",
-      "icon": "🟢",
+      "icon": "🌀",
       "official_url": "https://openai.com",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=openai",
-      "description": "OpenAI creates leading frontier AI models like GPT and Whisper.",
+      "description": "OpenAI 领先前沿多模态大模型。",
+      "status": "active"
+    },
+    "anthropic": {
+      "id": "anthropic",
+      "name": "Anthropic",
+      "short_name": "Anthropic",
+      "icon": "🧠",
+      "official_url": "https://www.anthropic.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=anthropic",
+      "description": "Anthropic Claude 系列安全对齐前沿大模型。",
+      "status": "active"
+    },
+    "xai": {
+      "id": "xai",
+      "name": "xAI",
+      "short_name": "xAI",
+      "icon": "𝕏",
+      "official_url": "https://x.ai",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=xai",
+      "description": "xAI Grok 系列前沿推理大模型。",
+      "status": "active"
+    },
+    "bytedance": {
+      "id": "bytedance",
+      "name": "ByteDance",
+      "short_name": "ByteDance",
+      "icon": "🪩",
+      "official_url": "https://www.volcengine.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=bytedance",
+      "description": "字节跳动豆包大模型家族。",
       "status": "active"
     }
   }

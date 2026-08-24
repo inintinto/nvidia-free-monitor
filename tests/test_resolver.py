@@ -152,15 +152,20 @@ class TestModelResolver(unittest.TestCase):
             get_provider_brand,
             get_provider_icon,
             get_tier_icon,
+            get_speed_badge,
             get_capability_icon,
         )
         self.assertEqual(get_provider_icon("deepseek-ai"), "🐋")
-        self.assertEqual(get_provider_icon("nvidia"), "🟩")
+        self.assertEqual(get_provider_icon("nvidia"), "🦾")
         self.assertEqual(get_provider_icon("meta"), "♾️")
-        self.assertEqual(get_provider_icon("google"), "🔵")
+        self.assertEqual(get_provider_icon("google"), "🕊️")
+        self.assertEqual(get_provider_icon("01-ai"), "🐯")
         self.assertEqual(get_provider_icon("unknown-org"), "🌐")
         self.assertEqual(get_tier_icon("flagship"), "👑")
+        self.assertEqual(get_tier_icon("small"), "🪶")
         self.assertEqual(get_tier_icon("embedding"), "🧬")
+        self.assertEqual(get_speed_badge("fast"), "⚡ 高速")
+        self.assertEqual(get_speed_badge("standard"), "◽ 标准")
         self.assertEqual(get_capability_icon("Reasoning"), "🧠")
         self.assertEqual(get_capability_icon("Coding"), "💻")
 

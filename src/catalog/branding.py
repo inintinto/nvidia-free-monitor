@@ -15,7 +15,7 @@ PROVIDER_REGISTRY = {
         "id": "nvidia",
         "name": "NVIDIA",
         "short_name": "NVIDIA",
-        "icon": "🟩",
+        "icon": "🦾",
         "official_url": "https://www.nvidia.com",
     },
     "meta": {
@@ -29,14 +29,14 @@ PROVIDER_REGISTRY = {
         "id": "google",
         "name": "Google",
         "short_name": "Google",
-        "icon": "🔵",
+        "icon": "🕊️",
         "official_url": "https://deepmind.google/technologies/gemma/",
     },
     "01-ai": {
         "id": "01-ai",
         "name": "01.AI",
         "short_name": "01.AI",
-        "icon": "🟡",
+        "icon": "🐯",
         "official_url": "https://www.01.ai",
     },
     "baai": {
@@ -50,14 +50,14 @@ PROVIDER_REGISTRY = {
         "id": "mistralai",
         "name": "Mistral AI",
         "short_name": "Mistral",
-        "icon": "🌊",
+        "icon": "🌪️",
         "official_url": "https://mistral.ai",
     },
     "cohere": {
         "id": "cohere",
         "name": "Cohere",
         "short_name": "Cohere",
-        "icon": "🟣",
+        "icon": "🪶",
         "official_url": "https://cohere.com",
     },
     "moonshotai": {
@@ -85,8 +85,29 @@ PROVIDER_REGISTRY = {
         "id": "openai",
         "name": "OpenAI",
         "short_name": "OpenAI",
-        "icon": "🟢",
+        "icon": "🌀",
         "official_url": "https://openai.com",
+    },
+    "anthropic": {
+        "id": "anthropic",
+        "name": "Anthropic",
+        "short_name": "Anthropic",
+        "icon": "🧠",
+        "official_url": "https://www.anthropic.com",
+    },
+    "xai": {
+        "id": "xai",
+        "name": "xAI",
+        "short_name": "xAI",
+        "icon": "🕏",
+        "official_url": "https://x.ai",
+    },
+    "bytedance": {
+        "id": "bytedance",
+        "name": "ByteDance",
+        "short_name": "ByteDance",
+        "icon": "🪩",
+        "official_url": "https://www.volcengine.com",
     },
 }
 
@@ -94,16 +115,18 @@ TIER_ICONS = {
     "flagship": "👑",
     "large": "🏛️",
     "balanced": "⚖️",
-    "medium": "⚡",
-    "small": "🔹",
-    "fast": "⚡",
+    "medium": "⚙️",
+    "small": "🪶",
     "embedding": "🧬",
-    "reasoning": "🧠",
-    "coding": "💻",
-    "vision": "👁️",
     "specialized": "🛠️",
-    "standard": "🔹",
     "unknown": "📦",
+}
+
+SPEED_BADGES = {
+    "fast": "⚡ 高速",
+    "standard": "◽ 标准",
+    "slow": "🐢 慢速",
+    "unknown": "❔ 未知",
 }
 
 CAPABILITY_ICONS = {
@@ -117,6 +140,13 @@ CAPABILITY_ICONS = {
     "tool calling": "🔧",
     "rerank": "📊",
     "unknown": "📦",
+}
+
+STATUS_ICONS = {
+    "active": "🟢",
+    "observed_removed": "🟡",
+    "deprecated": "🔴",
+    "unknown": "⚪",
 }
 
 
@@ -151,7 +181,17 @@ def get_tier_icon(tier: Optional[str]) -> str:
     return TIER_ICONS.get(tier.lower().strip(), "📦")
 
 
+def get_speed_badge(speed: Optional[str]) -> str:
+    if not speed:
+        return SPEED_BADGES["unknown"]
+    return SPEED_BADGES.get(speed.lower().strip(), SPEED_BADGES["unknown"])
+
+
 def get_capability_icon(cap: str) -> str:
     if not cap:
         return "📦"
     return CAPABILITY_ICONS.get(cap.lower().strip(), "✨")
+
+
+def get_status_icon(status: str) -> str:
+    return STATUS_ICONS.get(status.lower().strip(), "⚪")

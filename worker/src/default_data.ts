@@ -1,4 +1,4 @@
-// Automatically bundled fallback data from data/*.json (Stage 3C/3D)
+// Automatically bundled fallback data from data/*.json (Stage 3 Final Polish)
 export const BUNDLED_CATALOG = {
   "version": "3.1",
   "updated_at": "2026-08-23T15:30:00Z",
@@ -91,7 +91,7 @@ export const BUNDLED_CATALOG = {
       },
       "classification": {
         "family": "DeepSeek-Coder",
-        "tier": "standard",
+        "tier": "small",
         "model_type": "coding",
         "speed": "standard"
       },
