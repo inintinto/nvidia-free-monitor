@@ -1,6 +1,6 @@
 {
-  "version": "3.2",
-  "updated_at": "2026-08-24T00:15:00Z",
+  "version": "3.3",
+  "updated_at": "2026-08-24T20:30:00Z",
   "providers": {
     "deepseek-ai": {
       "id": "deepseek-ai",
@@ -72,6 +72,16 @@
       "description": "Mistral AI 欧陆开源与定制化生成式 AI 模型。",
       "status": "active"
     },
+    "nv-mistralai": {
+      "id": "nv-mistralai",
+      "name": "Mistral AI (NVIDIA)",
+      "short_name": "Mistral",
+      "icon": "🌪️",
+      "official_url": "https://mistral.ai",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=mistralai",
+      "description": "NVIDIA 针对 TensorRT-LLM 深度优化的 Mistral/Mixtral 模型。",
+      "status": "active"
+    },
     "cohere": {
       "id": "cohere",
       "name": "Cohere",
@@ -136,7 +146,7 @@
       "id": "xai",
       "name": "xAI",
       "short_name": "xAI",
-      "icon": "𝕏",
+      "icon": "✖️",
       "official_url": "https://x.ai",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=xai",
       "description": "xAI Grok 系列前沿推理大模型。",
@@ -150,6 +160,146 @@
       "official_url": "https://www.volcengine.com",
       "nvidia_url": "https://build.nvidia.com/explore/discover?owner=bytedance",
       "description": "字节跳动豆包大模型家族。",
+      "status": "active"
+    },
+    "ibm": {
+      "id": "ibm",
+      "name": "IBM",
+      "short_name": "IBM",
+      "icon": "💼",
+      "official_url": "https://www.ibm.com/granite",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=ibm",
+      "description": "IBM Granite 企业级全栈开源大语言与代码模型系列。",
+      "status": "active"
+    },
+    "writer": {
+      "id": "writer",
+      "name": "Writer",
+      "short_name": "Writer",
+      "icon": "✍️",
+      "official_url": "https://writer.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=writer",
+      "description": "Writer Palmyra 企业级高精度文本与长文本生成模型。",
+      "status": "active"
+    },
+    "adept": {
+      "id": "adept",
+      "name": "Adept",
+      "short_name": "Adept",
+      "icon": "🎯",
+      "official_url": "https://www.adept.ai",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=adept",
+      "description": "Adept Fuyu 多模态屏幕图表理解与交互模型。",
+      "status": "active"
+    },
+    "ai21labs": {
+      "id": "ai21labs",
+      "name": "AI21 Labs",
+      "short_name": "AI21 Labs",
+      "icon": "🦖",
+      "official_url": "https://www.ai21.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=ai21labs",
+      "description": "AI21 Labs Jamba 结合 Mamba 与 Transformer 架构的混合专家模型。",
+      "status": "active"
+    },
+    "aisingapore": {
+      "id": "aisingapore",
+      "name": "AI Singapore",
+      "short_name": "AI Singapore",
+      "icon": "🦁",
+      "official_url": "https://aisingapore.org",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=aisingapore",
+      "description": "新加坡国家人工智能计划 SEA-LION 东南亚多语言大模型。",
+      "status": "active"
+    },
+    "bigcode": {
+      "id": "bigcode",
+      "name": "BigCode",
+      "short_name": "BigCode",
+      "icon": "⭐",
+      "official_url": "https://www.bigcode-project.org",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=bigcode",
+      "description": "BigCode 开源 StarCoder2 代码大语言模型项目。",
+      "status": "active"
+    },
+    "databricks": {
+      "id": "databricks",
+      "name": "Databricks",
+      "short_name": "Databricks",
+      "icon": "🧱",
+      "official_url": "https://www.databricks.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=databricks",
+      "description": "Databricks 开源 DBRX 细粒度 MoE 架构高效率大模型。",
+      "status": "active"
+    },
+    "minimaxai": {
+      "id": "minimaxai",
+      "name": "MiniMax",
+      "short_name": "MiniMax",
+      "icon": "🐚",
+      "official_url": "https://www.minimaxi.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=minimaxai",
+      "description": "MiniMax 名之梦高智能通用大模型与 MoE 系列。",
+      "status": "active"
+    },
+    "poolside": {
+      "id": "poolside",
+      "name": "Poolside",
+      "short_name": "Poolside",
+      "icon": "🏊",
+      "official_url": "https://poolside.ai",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=poolside",
+      "description": "Poolside 专注极致代码开发与软件工程专化模型。",
+      "status": "active"
+    },
+    "snowflake": {
+      "id": "snowflake",
+      "name": "Snowflake",
+      "short_name": "Snowflake",
+      "icon": "❄️",
+      "official_url": "https://www.snowflake.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=snowflake",
+      "description": "Snowflake Arctic 专为企业级 SQL 与向量检索打造的高效模型。",
+      "status": "active"
+    },
+    "stepfun-ai": {
+      "id": "stepfun-ai",
+      "name": "StepFun",
+      "short_name": "StepFun",
+      "icon": "🪜",
+      "official_url": "https://www.stepfun.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=stepfun-ai",
+      "description": "阶跃星辰 Step 系列超长文本与多模态大模型。",
+      "status": "active"
+    },
+    "thinkingmachines": {
+      "id": "thinkingmachines",
+      "name": "Thinking Machines",
+      "short_name": "Thinking Machines",
+      "icon": "💡",
+      "official_url": "https://thinkingmachin.es",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=thinkingmachines",
+      "description": "Thinking Machines 专注于下一代通用推理与 Agent 架构研究。",
+      "status": "active"
+    },
+    "zyphra": {
+      "id": "zyphra",
+      "name": "Zyphra",
+      "short_name": "Zyphra",
+      "icon": "⚡",
+      "official_url": "https://www.zyphra.com",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=zyphra",
+      "description": "Zyphra Zamba 高性能 Mamba-Transformer 混合架构大模型。",
+      "status": "active"
+    },
+    "upstage": {
+      "id": "upstage",
+      "name": "Upstage",
+      "short_name": "Upstage",
+      "icon": "☀️",
+      "official_url": "https://www.upstage.ai",
+      "nvidia_url": "https://build.nvidia.com/explore/discover?owner=upstage",
+      "description": "Upstage Solar 创新深度扩展架构大语言模型。",
       "status": "active"
     }
   }

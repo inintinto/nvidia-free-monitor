@@ -1,4 +1,4 @@
-// Automatically bundled fallback data from data/*.json (Stage 3 Final Polish)
+// Automatically bundled fallback data from data/*.json (Stage 3 Full Provider Polish)
 export const BUNDLED_CATALOG = {
   "version": "3.1",
   "updated_at": "2026-08-23T15:30:00Z",

@@ -1,3 +1,4 @@
+import { getProviderDisplayName, inferTierFromModelId } from "./branding.ts";
 import type {
   LifecycleRecord,
   ModelDetail,
@@ -55,25 +56,27 @@ export class CatalogStore {
       const life = lifecycleHistory[modelId] || {};
 
       const defaultProviderId = modelId.includes("/") ? modelId.split("/")[0] : "nvidia";
-      const defaultProviderName = defaultProviderId.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+      const defaultProviderName = getProviderDisplayName(defaultProviderId);
       const rawName = modelId.includes("/") ? modelId.split("/").slice(1).join("/") : modelId;
       const defaultDisplay = rawName.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
-      const rawUsage = (cat.usage as Record<string, unknown>) || {};
+      // Stage 3A Usage Stats
       const epUsage = (cat.endpoint as Record<string, unknown>) || {};
+      const catUsage = (cat.usage as Record<string, unknown>) || {};
       const usage: UsageStats = {
-        api_calls_24h: (rawUsage.api_calls_24h as string) ?? (epUsage.api_calls_24h as string) ?? null,
-        api_calls_daily: (rawUsage.api_calls_daily as string) ?? (epUsage.api_calls_daily as string) ?? null,
-        api_calls_7d: (rawUsage.api_calls_7d as string) ?? (epUsage.api_calls_7d as string) ?? null,
-        api_calls_30d: (rawUsage.api_calls_30d as string) ?? (epUsage.api_calls_30d as string) ?? null,
-        usage_updated_at: (rawUsage.usage_updated_at as string) ?? null,
-        usage_source: (rawUsage.usage_source as string) ?? "NVIDIA API Catalog Public Aggregate",
+        api_calls_24h: (epUsage.api_calls_24h as string) ?? (catUsage.api_calls_24h as string) ?? (cat.api_calls_24h as string) ?? null,
+        api_calls_daily: (epUsage.api_calls_daily as string) ?? (catUsage.api_calls_daily as string) ?? (cat.api_calls_daily as string) ?? null,
+        api_calls_7d: (epUsage.api_calls_7d as string) ?? (catUsage.api_calls_7d as string) ?? (cat.api_calls_7d as string) ?? null,
+        api_calls_30d: (epUsage.api_calls_30d as string) ?? (catUsage.api_calls_30d as string) ?? (cat.api_calls_30d as string) ?? null,
+        usage_updated_at: (epUsage.usage_updated_at as string) ?? (catUsage.usage_updated_at as string) ?? (cat.usage_updated_at as string) ?? null,
+        usage_source: (epUsage.usage_source as string) ?? (catUsage.usage_source as string) ?? "NVIDIA API Catalog Public Aggregate",
       };
 
-      const rawOfficial = (life.official_lifecycle as Record<string, unknown>) || {};
+      // Stage 3A Lifecycle Record
       const catLife = (cat.lifecycle as Record<string, unknown>) || {};
+      const rawOfficial = (catLife.official_lifecycle as Record<string, unknown>) || {};
       const officialLifecycle: OfficialLifecycle = {
-        official_status: (rawOfficial.official_status as string) || (catLife.availability as string) || "active",
+        official_status: (rawOfficial.official_status as any) || (catLife.availability as any) || "none",
         official_deprecation_date: (rawOfficial.official_deprecation_date as string) ?? (catLife.official_deprecation_date as string) ?? null,
         sunset_date: (rawOfficial.sunset_date as string) ?? null,
         deprecation_source_url: (rawOfficial.deprecation_source_url as string) ?? (catLife.deprecation_source_url as string) ?? null,
@@ -103,13 +106,16 @@ export class CatalogStore {
               name: (cat.provider as string) || defaultProviderName,
             };
 
-      // Stage 3A Classification
+      // Stage 3A Classification with smart heuristics fallback
       const rawClass = (cat.classification as Record<string, unknown>) || {};
+      const defaultTier = inferTierFromModelId(modelId);
+      const defaultSpeed = modelId.toLowerCase().includes("flash") || modelId.toLowerCase().includes("turbo") ? "fast" : "standard";
+
       const classification = {
         family: (rawClass.family as string) ?? (cat.model_family as string) ?? null,
-        tier: (rawClass.tier as any) || "standard",
+        tier: (rawClass.tier as any) || defaultTier,
         model_type: (rawClass.model_type as any) || "chat",
-        speed: (rawClass.speed as any) || "standard",
+        speed: (rawClass.speed as any) || defaultSpeed,
       };
 
       // Stage 3A Architecture
@@ -125,11 +131,11 @@ export class CatalogStore {
           : {
               type: (cat.architecture as string) ?? null,
               total_parameters: (cat.parameter_count as string) ?? null,
-              active_parameters: (cat.parameter_count as string) ?? null,
-              parameter_status: cat.parameter_count ? ("official" as const) : ("unknown" as const),
+              active_parameters: null,
+              parameter_status: (cat.parameter_count ? "official" : "unknown") as any,
             };
 
-      // Stage 3A Context
+      // Stage 3A Context Info
       const rawCtx = cat.context;
       const context_info =
         typeof rawCtx === "object" && rawCtx !== null
@@ -141,10 +147,10 @@ export class CatalogStore {
           : {
               length: (cat.context_length as string) ?? null,
               max_output: null,
-              status: cat.context_length ? ("official" as const) : ("unknown" as const),
+              status: "unknown" as any,
             };
 
-      // Stage 3A Release
+      // Stage 3A Release Info
       const rawRel = (cat.release as Record<string, unknown>) || {};
       const release_info = {
         first_seen: (rawRel.first_seen as string) ?? (life.first_seen as string) ?? null,
@@ -156,7 +162,7 @@ export class CatalogStore {
       const rawLinks = (cat.links as Record<string, unknown>) || {};
       const oldUrls = (cat.source_urls as Record<string, string>) || {};
       const links = {
-        nvidia: (rawLinks.nvidia as string) ?? oldUrls.nvidia_nim ?? null,
+        nvidia: (rawLinks.nvidia as string) ?? oldUrls.nvidia_nim ?? `https://build.nvidia.com/${modelId}`,
         official: (rawLinks.official as string) ?? oldUrls.official_site ?? null,
         documentation: (rawLinks.documentation as string) ?? null,
         model_card: (rawLinks.model_card as string) ?? null,
@@ -174,6 +180,25 @@ export class CatalogStore {
       if (links.nvidia) source_urls.nvidia_nim = links.nvidia;
       if (links.official) source_urls.official_site = links.official;
 
+      // Smart capability inference
+      let capabilities = Array.isArray(cat.capabilities) && cat.capabilities.length > 0 ? (cat.capabilities as string[]) : [];
+      if (capabilities.length === 0) {
+        const norm = modelId.toLowerCase();
+        if (norm.includes("embed") || norm.includes("bge") || norm.includes("e5")) {
+          capabilities = ["Embedding"];
+        } else if (norm.includes("code") || norm.includes("coder") || norm.includes("starcoder")) {
+          capabilities = ["Coding", "Chat"];
+        } else if (norm.includes("vision") || norm.includes("vl") || norm.includes("fuyu") || norm.includes("deplot") || norm.includes("neva")) {
+          capabilities = ["Vision", "Chat"];
+        } else if (norm.includes("rerank")) {
+          capabilities = ["Rerank"];
+        } else if (norm.includes("math") || norm.includes("reasoning") || norm.includes("r1")) {
+          capabilities = ["Reasoning", "Chat"];
+        } else {
+          capabilities = ["Chat"];
+        }
+      }
+
       const detail: ModelDetail = {
         short_index: index,
         model_id: modelId,
@@ -190,7 +215,7 @@ export class CatalogStore {
         links,
         source_metadata,
 
-        capabilities: Array.isArray(cat.capabilities) && cat.capabilities.length > 0 ? (cat.capabilities as string[]) : ["Chat"],
+        capabilities,
         free_endpoint: (cat.free_endpoint as boolean) ?? (epUsage.available as boolean) ?? true,
         usage,
         lifecycle,
@@ -224,15 +249,20 @@ export class CatalogStore {
     return Array.from(this.modelsMap.values());
   }
 
+  listModels(): ModelDetail[] {
+    return this.getAllModels();
+  }
+
   getProviders(): ProviderSummary[] {
     const map = new Map<string, { display_name: string; count: number }>();
     for (const model of this.modelsMap.values()) {
       const pid = model.provider_id;
+      const displayName = getProviderDisplayName(pid);
       const existing = map.get(pid);
       if (existing) {
         existing.count++;
       } else {
-        map.set(pid, { display_name: model.provider, count: 1 });
+        map.set(pid, { display_name: displayName, count: 1 });
       }
     }
 
@@ -261,41 +291,22 @@ export class CatalogStore {
         caps.add(cap);
       }
     }
-
-    const priorityOrder = ["Chat", "Reasoning", "Coding", "Vision", "Audio", "Image", "Video", "Embedding", "Agentic"];
-    const ordered: string[] = [];
-    for (const p of priorityOrder) {
-      if (caps.has(p)) {
-        ordered.push(p);
-      }
-    }
-    for (const c of Array.from(caps).sort()) {
-      if (!ordered.includes(c)) {
-        ordered.push(c);
-      }
-    }
-    return ordered;
+    return Array.from(caps).sort();
   }
 
-  listModels(providerId?: string, capability?: string): ModelDetail[] {
-    const list: ModelDetail[] = [];
-    for (const model of this.modelsMap.values()) {
+  filterModels(providerId?: string, capability?: string): ModelDetail[] {
+    return this.getAllModels().filter((m) => {
       if (providerId && providerId !== "all") {
         const normP = providerId.toLowerCase().replace(/[-_\s]/g, "");
-        const mP = model.provider_id.toLowerCase().replace(/[-_\s]/g, "");
-        if (normP !== mP) continue;
+        const mP = m.provider_id.toLowerCase().replace(/[-_\s]/g, "");
+        if (normP !== mP) return false;
       }
-
-      if (capability && capability !== "all" && capability !== "All Models") {
-        const capLower = capability.toLowerCase();
-        const modelCapsLower = model.capabilities.map((c) => c.toLowerCase());
-        if (!modelCapsLower.includes(capLower)) continue;
+      if (capability && capability !== "all") {
+        const normCap = capability.toLowerCase().trim();
+        const hasCap = m.capabilities.some((c) => c.toLowerCase().trim() === normCap);
+        if (!hasCap) return false;
       }
-
-      list.push(model);
-    }
-
-    list.sort((a, b) => a.provider.localeCompare(b.provider) || a.display_name.localeCompare(b.display_name));
-    return list;
+      return true;
+    });
   }
 }

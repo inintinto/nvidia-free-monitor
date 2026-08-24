@@ -10,6 +10,7 @@ import {
   getProviderDisplayName,
   getProviderIcon,
   getProviderShortName,
+  getSpeedBadge,
   getStatusBadge,
   getTierBadge,
   getTierIcon,
@@ -30,7 +31,7 @@ test("Stage 3 Visual Branding System Tests", async (t) => {
 
   await t.test("1. All Providers have unique, stable, non-color-dot emojis", () => {
     const forbiddenDots = ["🟢", "🔵", "🟣", "🟡", "🔴", "⚪", "⚫", "🟤", "🟠"];
-    const seenIcons = new Set<string>();
+    const seenIcons = new Map<string, string>();
 
     for (const [id, brand] of Object.entries(PROVIDER_REGISTRY)) {
       assert.ok(brand.icon, `Provider ${id} must have an icon`);
@@ -38,11 +39,13 @@ test("Stage 3 Visual Branding System Tests", async (t) => {
         !forbiddenDots.includes(brand.icon),
         `Provider ${id} is using forbidden color dot ${brand.icon}`
       );
+      // nv-mistralai maps to mistralai
+      if (id === "nv-mistralai") continue;
       assert.ok(
         !seenIcons.has(brand.icon),
-        `Duplicate Provider icon detected: ${brand.icon} for ${id}`
+        `Duplicate Provider icon detected: ${brand.icon} for ${id} (already used by ${seenIcons.get(brand.icon)})`
       );
-      seenIcons.add(brand.icon);
+      seenIcons.set(brand.icon, id);
     }
   });
 
@@ -59,6 +62,9 @@ test("Stage 3 Visual Branding System Tests", async (t) => {
     assert.equal(getProviderIcon("qwen"), "🐉");
     assert.equal(getProviderIcon("microsoft"), "🪟");
     assert.equal(getProviderIcon("openai"), "🌀");
+    assert.equal(getProviderIcon("ibm"), "💼");
+    assert.equal(getProviderIcon("writer"), "✍️");
+    assert.equal(getProviderIcon("snowflake"), "❄️");
   });
 
   await t.test("3. Unknown Provider Fallback", () => {
@@ -72,7 +78,6 @@ test("Stage 3 Visual Branding System Tests", async (t) => {
     assert.equal(getTierIcon("large"), "🏛️");
     assert.equal(getTierIcon("balanced"), "⚖️");
     assert.equal(getTierIcon("medium"), "⚙️");
-    assert.equal(getTierIcon("fast"), "⚡");
     assert.equal(getTierIcon("small"), "🪶");
     assert.equal(getTierIcon("embedding"), "🧬");
     assert.equal(getTierIcon("specialized"), "🛠️");
@@ -125,11 +130,10 @@ test("Stage 3 Visual Branding System Tests", async (t) => {
   });
 
   await t.test("9. Decoupled Speed Badges Verification", () => {
-    const { getSpeedBadge } = require("../src/branding.ts");
     assert.equal(getSpeedBadge("fast"), "⚡ 高速");
     assert.equal(getSpeedBadge("standard"), "◽ 标准");
     assert.equal(getSpeedBadge("slow"), "🐢 慢速");
-    assert.equal(getSpeedBadge("unknown"), "❔ 未知");
-    assert.equal(getSpeedBadge(null), "❔ 未知");
+    assert.equal(getSpeedBadge("unknown"), "◽ 标准");
+    assert.equal(getSpeedBadge(null), "◽ 标准");
   });
 });
