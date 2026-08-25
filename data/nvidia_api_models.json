@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-08-23T09:27:06.594279+00:00",
+  "checked_at": "2026-08-25T12:43:20.358918+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 102,
+  "model_count": 95,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -21,11 +21,6 @@
     {
       "id": "aisingapore/sea-lion-7b-instruct",
       "owned_by": "aisingapore",
-      "created": 735790403
-    },
-    {
-      "id": "baai/bge-m3",
-      "owned_by": "baai",
       "created": 735790403
     },
     {
@@ -314,11 +309,6 @@
       "created": 735790403
     },
     {
-      "id": "nvidia/llama-nemotron-embed-1b-v2",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
       "id": "nvidia/llama-nemotron-embed-vl-1b-v2",
       "owned_by": "nvidia",
       "created": 735790403
@@ -330,11 +320,6 @@
     },
     {
       "id": "nvidia/mistral-nemo-minitron-8b-8k-instruct",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/nemoretriever-parse",
       "owned_by": "nvidia",
       "created": 735790403
     },
@@ -409,21 +394,6 @@
       "created": 735790403
     },
     {
-      "id": "nvidia/nv-embed-v1",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/nv-embedcode-7b-v1",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/nv-embedqa-e5-v5",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
       "id": "nvidia/nv-embedqa-mistral-7b-v2",
       "owned_by": "nvidia",
       "created": 735790403
@@ -481,11 +451,6 @@
     {
       "id": "stepfun-ai/step-3.7-flash",
       "owned_by": "stepfun-ai",
-      "created": 735790403
-    },
-    {
-      "id": "thinkingmachines/inkling",
-      "owned_by": "thinkingmachines",
       "created": 735790403
     },
     {
