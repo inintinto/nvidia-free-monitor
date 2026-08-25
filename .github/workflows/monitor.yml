@@ -48,9 +48,9 @@ jobs:
             echo "Changes detected in data/nvidia_api_models.json. Committing..."
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git pull --rebase origin main
             git add data/nvidia_api_models.json
             git commit -m "Update NVIDIA models baseline: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+            git pull --rebase origin main
             git push origin main
           else
             echo "No changes in baseline. Skipping commit."
