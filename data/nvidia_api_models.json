@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-08-25T12:43:20.358918+00:00",
+  "checked_at": "2026-08-26T09:39:23.184684+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 95,
+  "model_count": 83,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -114,37 +114,12 @@
       "created": 735790403
     },
     {
-      "id": "meta/llama-3.1-70b-instruct",
-      "owned_by": "meta",
-      "created": 735790403
-    },
-    {
-      "id": "meta/llama-3.1-8b-instruct",
-      "owned_by": "meta",
-      "created": 735790403
-    },
-    {
       "id": "meta/llama-3.2-11b-vision-instruct",
       "owned_by": "meta",
       "created": 735790403
     },
     {
-      "id": "meta/llama-3.2-1b-instruct",
-      "owned_by": "meta",
-      "created": 735790403
-    },
-    {
-      "id": "meta/llama-3.2-3b-instruct",
-      "owned_by": "meta",
-      "created": 735790403
-    },
-    {
       "id": "meta/llama-3.2-90b-vision-instruct",
-      "owned_by": "meta",
-      "created": 735790403
-    },
-    {
-      "id": "meta/llama-3.3-70b-instruct",
       "owned_by": "meta",
       "created": 735790403
     },
@@ -269,16 +244,6 @@
       "created": 735790403
     },
     {
-      "id": "nvidia/llama-3.1-nemotron-nano-8b-v1",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/llama-3.1-nemotron-nano-vl-8b-v1",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
       "id": "nvidia/llama-3.1-nemotron-safety-guard-8b-v3",
       "owned_by": "nvidia",
       "created": 735790403
@@ -295,16 +260,6 @@
     },
     {
       "id": "nvidia/llama-3.2-nv-embedqa-1b-v1",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/llama-3.3-nemotron-super-49b-v1",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/llama-3.3-nemotron-super-49b-v1.5",
       "owned_by": "nvidia",
       "created": 735790403
     },
@@ -369,16 +324,6 @@
       "created": 735790403
     },
     {
-      "id": "nvidia/nemotron-mini-4b-instruct",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/nemotron-nano-12b-v2-vl",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
       "id": "nvidia/nemotron-nano-3-30b-a3b",
       "owned_by": "nvidia",
       "created": 735790403
@@ -400,11 +345,6 @@
     },
     {
       "id": "nvidia/nvclip",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/nvidia-nemotron-nano-9b-v2",
       "owned_by": "nvidia",
       "created": 735790403
     },
