@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-08-27T02:55:45.940324+00:00",
+  "checked_at": "2026-08-28T09:39:00.887438+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 84,
+  "model_count": 83,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -391,11 +391,6 @@
     {
       "id": "snowflake/arctic-embed-l",
       "owned_by": "snowflake",
-      "created": 735790403
-    },
-    {
-      "id": "stepfun-ai/step-3.7-flash",
-      "owned_by": "stepfun-ai",
       "created": 735790403
     },
     {
