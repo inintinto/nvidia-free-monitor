@@ -1,10 +1,10 @@
 {
   "version": "3.1",
-  "updated_at": "2026-08-27T04:17:15.251467+00:00",
+  "updated_at": "2026-08-29T12:26:14.384869+00:00",
   "models": {
     "deepseek-ai/deepseek-v4-flash-0731": {
       "model_id": "deepseek-ai/deepseek-v4-flash-0731",
-      "display_name": "DeepSeek V4 Flash 0731",
+      "display_name": "deepseek-v4-flash-0731",
       "aliases": [
         "ds v4 flash",
         "deepseek v4 flash",
@@ -19,25 +19,26 @@
       },
       "classification": {
         "family": "DeepSeek-V4",
-        "tier": "flagship",
+        "tier": "standard",
         "model_type": "chat",
         "speed": "fast"
       },
       "architecture": {
         "type": "MoE",
-        "total_parameters": null,
-        "active_parameters": null,
-        "parameter_status": "unknown"
+        "total_parameters": "304B",
+        "active_parameters": "13B",
+        "parameter_status": "official"
       },
       "context": {
-        "length": "128k",
+        "length": "1M",
         "max_output": null,
         "status": "official"
       },
       "capabilities": [
         "Chat",
         "Reasoning",
-        "Coding"
+        "Coding",
+        "Agentic"
       ],
       "release": {
         "first_seen": "2026-07-31T08:00:00Z",
@@ -48,7 +49,10 @@
         "availability": "active",
         "removed_at": null,
         "official_deprecation_date": null,
-        "deprecation_source_url": null
+        "deprecation_source_url": null,
+        "official_retirement_date": null,
+        "replacement_model_id": null,
+        "deprecation_notes": null
       },
       "endpoint": {
         "available": true,
@@ -60,7 +64,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/deepseek-ai/deepseek-v4-flash-0731",
         "official": "https://www.deepseek.com",
-        "documentation": null,
+        "documentation": "https://docs.api.nvidia.com",
         "model_card": null
       },
       "source_metadata": {
@@ -68,16 +72,21 @@
           "architecture": "official",
           "context": "official",
           "parameters": "unknown",
-          "capabilities": "official",
-          "endpoint_usage": "official_aggregate"
+          "capabilities": "NVIDIA Build",
+          "endpoint_usage": "official_aggregate",
+          "display_name": "NVIDIA Build",
+          "architecture.total_parameters": "NVIDIA Build",
+          "architecture.active_parameters": "NVIDIA Build",
+          "context.length": "NVIDIA Build",
+          "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-23T15:30:00Z"
+        "last_verified": "2026-08-29T12:26:14.391024+00:00"
       }
     },
     "deepseek-ai/deepseek-coder-6.7b-instruct": {
       "model_id": "deepseek-ai/deepseek-coder-6.7b-instruct",
-      "display_name": "DeepSeek Coder 6.7B Instruct",
+      "display_name": "Deepseek Coder 6.7B Instruct",
       "aliases": [
         "ds coder 6.7b",
         "deepseek coder",
@@ -90,14 +99,14 @@
       },
       "classification": {
         "family": "DeepSeek-Coder",
-        "tier": "small",
+        "tier": "standard",
         "model_type": "coding",
         "speed": "standard"
       },
       "architecture": {
         "type": "Dense",
         "total_parameters": "6.7B",
-        "active_parameters": "6.7B",
+        "active_parameters": "7B",
         "parameter_status": "official"
       },
       "context": {
@@ -107,7 +116,9 @@
       },
       "capabilities": [
         "Coding",
-        "Chat"
+        "Chat",
+        "Reasoning",
+        "Agentic"
       ],
       "release": {
         "first_seen": "2026-03-01T00:00:00Z",
@@ -118,7 +129,10 @@
         "availability": "active",
         "removed_at": null,
         "official_deprecation_date": null,
-        "deprecation_source_url": null
+        "deprecation_source_url": null,
+        "official_retirement_date": null,
+        "replacement_model_id": null,
+        "deprecation_notes": null
       },
       "endpoint": {
         "available": true,
@@ -130,7 +144,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/deepseek-ai/deepseek-coder-6.7b-instruct",
         "official": "https://www.deepseek.com",
-        "documentation": null,
+        "documentation": "https://docs.api.nvidia.com",
         "model_card": null
       },
       "source_metadata": {
@@ -138,11 +152,14 @@
           "architecture": "official",
           "context": "official",
           "parameters": "official",
-          "capabilities": "official",
-          "endpoint_usage": "official_aggregate"
+          "capabilities": "NVIDIA Build",
+          "endpoint_usage": "official_aggregate",
+          "display_name": "NVIDIA Build",
+          "architecture.active_parameters": "NVIDIA Build",
+          "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-23T15:30:00Z"
+        "last_verified": "2026-08-29T12:26:14.390946+00:00"
       }
     },
     "meta/llama-3.3-70b-instruct": {
@@ -161,14 +178,14 @@
       },
       "classification": {
         "family": "Llama-3.3",
-        "tier": "large",
+        "tier": "standard",
         "model_type": "chat",
         "speed": "standard"
       },
       "architecture": {
         "type": "Dense",
         "total_parameters": "70B",
-        "active_parameters": "70B",
+        "active_parameters": "7B",
         "parameter_status": "official"
       },
       "context": {
@@ -179,7 +196,8 @@
       "capabilities": [
         "Chat",
         "Reasoning",
-        "Coding"
+        "Coding",
+        "Agentic"
       ],
       "release": {
         "first_seen": "2026-04-15T00:00:00Z",
@@ -190,7 +208,10 @@
         "availability": "active",
         "removed_at": null,
         "official_deprecation_date": null,
-        "deprecation_source_url": null
+        "deprecation_source_url": null,
+        "official_retirement_date": null,
+        "replacement_model_id": null,
+        "deprecation_notes": null
       },
       "endpoint": {
         "available": true,
@@ -202,7 +223,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/meta/llama-3.3-70b-instruct",
         "official": "https://llama.meta.com",
-        "documentation": null,
+        "documentation": "https://docs.api.nvidia.com",
         "model_card": null
       },
       "source_metadata": {
@@ -210,11 +231,13 @@
           "architecture": "official",
           "context": "official",
           "parameters": "official",
-          "capabilities": "official",
-          "endpoint_usage": "official_aggregate"
+          "capabilities": "NVIDIA Build",
+          "endpoint_usage": "official_aggregate",
+          "architecture.active_parameters": "NVIDIA Build",
+          "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-23T15:30:00Z"
+        "last_verified": "2026-08-29T12:26:14.391323+00:00"
       }
     },
     "meta/llama-3.1-405b-instruct": {
@@ -233,13 +256,13 @@
       "classification": {
         "family": "Llama-3.1",
         "tier": "standard",
-        "model_type": "vision",
+        "model_type": "chat",
         "speed": "standard"
       },
       "architecture": {
         "type": "Dense",
         "total_parameters": "405B",
-        "active_parameters": "405B",
+        "active_parameters": "7B",
         "parameter_status": "official"
       },
       "context": {
@@ -251,7 +274,7 @@
         "Chat",
         "Reasoning",
         "Coding",
-        "Vision"
+        "Agentic"
       ],
       "release": {
         "first_seen": "2026-07-23T00:00:00Z",
@@ -262,7 +285,10 @@
         "availability": "active",
         "removed_at": null,
         "official_deprecation_date": null,
-        "deprecation_source_url": null
+        "deprecation_source_url": null,
+        "official_retirement_date": null,
+        "replacement_model_id": null,
+        "deprecation_notes": null
       },
       "endpoint": {
         "available": true,
@@ -284,15 +310,17 @@
           "parameters": "official",
           "capabilities": "NVIDIA Build",
           "endpoint_usage": "official_aggregate",
-          "links.documentation": "NVIDIA Build"
+          "links.documentation": "NVIDIA Build",
+          "architecture.active_parameters": "NVIDIA Build",
+          "classification.model_type": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-27T03:35:46.393099+00:00"
+        "last_verified": "2026-08-29T12:26:14.391257+00:00"
       }
     },
     "nvidia/nemotron-4-340b-instruct": {
       "model_id": "nvidia/nemotron-4-340b-instruct",
-      "display_name": "Nemotron-4 340B Instruct",
+      "display_name": "nemotron-4-340b-instruct",
       "aliases": [
         "nemotron",
         "nemotron 4 340b",
@@ -306,14 +334,14 @@
       },
       "classification": {
         "family": "Nemotron-4",
-        "tier": "flagship",
+        "tier": "standard",
         "model_type": "chat",
         "speed": "standard"
       },
       "architecture": {
         "type": "Dense",
         "total_parameters": "340B",
-        "active_parameters": "340B",
+        "active_parameters": "7B",
         "parameter_status": "official"
       },
       "context": {
@@ -323,7 +351,9 @@
       },
       "capabilities": [
         "Chat",
-        "Reasoning"
+        "Reasoning",
+        "Coding",
+        "Agentic"
       ],
       "release": {
         "first_seen": "2026-06-10T00:00:00Z",
@@ -334,7 +364,10 @@
         "availability": "active",
         "removed_at": null,
         "official_deprecation_date": null,
-        "deprecation_source_url": null
+        "deprecation_source_url": null,
+        "official_retirement_date": null,
+        "replacement_model_id": null,
+        "deprecation_notes": null
       },
       "endpoint": {
         "available": true,
@@ -346,7 +379,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/nvidia/nemotron-4-340b-instruct",
         "official": "https://www.nvidia.com",
-        "documentation": null,
+        "documentation": "https://docs.api.nvidia.com",
         "model_card": null
       },
       "source_metadata": {
@@ -354,11 +387,14 @@
           "architecture": "official",
           "context": "official",
           "parameters": "official",
-          "capabilities": "official",
-          "endpoint_usage": "official_aggregate"
+          "capabilities": "NVIDIA Build",
+          "endpoint_usage": "official_aggregate",
+          "display_name": "NVIDIA Build",
+          "architecture.active_parameters": "NVIDIA Build",
+          "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-23T15:30:00Z"
+        "last_verified": "2026-08-29T12:26:14.391393+00:00"
       }
     },
     "google/gemma-2-27b-it": {
@@ -377,13 +413,13 @@
       "classification": {
         "family": "Gemma-2",
         "tier": "standard",
-        "model_type": "vision",
+        "model_type": "chat",
         "speed": "standard"
       },
       "architecture": {
         "type": "Dense",
         "total_parameters": "27B",
-        "active_parameters": "27B",
+        "active_parameters": "7B",
         "parameter_status": "official"
       },
       "context": {
@@ -394,8 +430,8 @@
       "capabilities": [
         "Chat",
         "Reasoning",
-        "Vision",
-        "Coding"
+        "Coding",
+        "Agentic"
       ],
       "release": {
         "first_seen": "2026-06-25T00:00:00Z",
@@ -406,7 +442,10 @@
         "availability": "active",
         "removed_at": null,
         "official_deprecation_date": null,
-        "deprecation_source_url": null
+        "deprecation_source_url": null,
+        "official_retirement_date": null,
+        "replacement_model_id": null,
+        "deprecation_notes": null
       },
       "endpoint": {
         "available": true,
@@ -429,15 +468,17 @@
           "capabilities": "NVIDIA Build",
           "endpoint_usage": "official_aggregate",
           "display_name": "NVIDIA Build",
-          "links.documentation": "NVIDIA Build"
+          "links.documentation": "NVIDIA Build",
+          "architecture.active_parameters": "NVIDIA Build",
+          "classification.model_type": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-27T03:35:46.404628+00:00"
+        "last_verified": "2026-08-29T12:26:14.391189+00:00"
       }
     },
     "01-ai/yi-large": {
       "model_id": "01-ai/yi-large",
-      "display_name": "Yi Large",
+      "display_name": "yi-large",
       "aliases": [
         "yi large",
         "01 yi large",
@@ -450,15 +491,15 @@
       },
       "classification": {
         "family": "Yi",
-        "tier": "large",
+        "tier": "standard",
         "model_type": "chat",
         "speed": "standard"
       },
       "architecture": {
         "type": "Dense",
-        "total_parameters": null,
-        "active_parameters": null,
-        "parameter_status": "unknown"
+        "total_parameters": "1B",
+        "active_parameters": "7B",
+        "parameter_status": "official"
       },
       "context": {
         "length": "32k",
@@ -467,7 +508,9 @@
       },
       "capabilities": [
         "Chat",
-        "Reasoning"
+        "Reasoning",
+        "Coding",
+        "Agentic"
       ],
       "release": {
         "first_seen": "2026-05-01T00:00:00Z",
@@ -490,7 +533,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/01-ai/yi-large",
         "official": "https://www.01.ai",
-        "documentation": null,
+        "documentation": "https://docs.api.nvidia.com",
         "model_card": null
       },
       "source_metadata": {
@@ -498,16 +541,20 @@
           "architecture": "official",
           "context": "official",
           "parameters": "unknown",
-          "capabilities": "official",
-          "endpoint_usage": "official_aggregate"
+          "capabilities": "NVIDIA Build",
+          "endpoint_usage": "official_aggregate",
+          "display_name": "NVIDIA Build",
+          "architecture.total_parameters": "NVIDIA Build",
+          "architecture.active_parameters": "NVIDIA Build",
+          "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-23T15:30:00Z"
+        "last_verified": "2026-08-29T12:26:14.390726+00:00"
       }
     },
     "baai/bge-m3": {
       "model_id": "baai/bge-m3",
-      "display_name": "BGE-M3 Embedding",
+      "display_name": "bge-m3",
       "aliases": [
         "bge m3",
         "bge-m3",
@@ -520,14 +567,14 @@
       },
       "classification": {
         "family": "BGE",
-        "tier": "embedding",
-        "model_type": "embedding",
+        "tier": "standard",
+        "model_type": "chat",
         "speed": "fast"
       },
       "architecture": {
-        "type": "Embedding",
-        "total_parameters": "570M",
-        "active_parameters": "570M",
+        "type": "Dense",
+        "total_parameters": "1B",
+        "active_parameters": "7B",
         "parameter_status": "official"
       },
       "context": {
@@ -536,7 +583,11 @@
         "status": "official"
       },
       "capabilities": [
-        "Embedding"
+        "Embedding",
+        "Chat",
+        "Coding",
+        "Reasoning",
+        "Agentic"
       ],
       "release": {
         "first_seen": "2026-02-01T00:00:00Z",
@@ -547,7 +598,10 @@
         "availability": "active",
         "removed_at": null,
         "official_deprecation_date": null,
-        "deprecation_source_url": null
+        "deprecation_source_url": null,
+        "official_retirement_date": null,
+        "replacement_model_id": null,
+        "deprecation_notes": null
       },
       "endpoint": {
         "available": true,
@@ -559,7 +613,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/baai/bge-m3",
         "official": "https://www.baai.ac.cn",
-        "documentation": null,
+        "documentation": "https://docs.api.nvidia.com",
         "model_card": null
       },
       "source_metadata": {
@@ -567,11 +621,17 @@
           "architecture": "official",
           "context": "official",
           "parameters": "official",
-          "capabilities": "official",
-          "endpoint_usage": "official_aggregate"
+          "capabilities": "NVIDIA Build",
+          "endpoint_usage": "official_aggregate",
+          "display_name": "NVIDIA Build",
+          "architecture.type": "NVIDIA Build",
+          "architecture.total_parameters": "NVIDIA Build",
+          "architecture.active_parameters": "NVIDIA Build",
+          "classification.model_type": "NVIDIA Build",
+          "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-23T15:30:00Z"
+        "last_verified": "2026-08-29T12:26:14.390847+00:00"
       }
     },
     "deepseek-ai/deepseek-v4-pro-0813": {
@@ -624,7 +684,7 @@
           "classification.model_type": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-27T04:17:15.251478+00:00"
+        "last_verified": "2026-08-29T12:26:14.391102+00:00"
       },
       "slug": "deepseek-v4-pro-0813",
       "aliases": [],
@@ -637,7 +697,10 @@
         "availability": "active",
         "removed_at": null,
         "official_deprecation_date": null,
-        "deprecation_source_url": null
+        "deprecation_source_url": null,
+        "official_retirement_date": null,
+        "replacement_model_id": null,
+        "deprecation_notes": null
       },
       "endpoint": {
         "available": true,
