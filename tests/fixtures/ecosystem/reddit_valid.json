@@ -1,0 +1,29 @@
+{
+  "kind": "Listing",
+  "data": {
+    "children": [
+      {
+        "kind": "t3",
+        "data": {
+          "id": "post_llama_128k",
+          "subreddit": "LocalLLaMA",
+          "author": "llm_researcher",
+          "title": "meta/llama-3.1-405b-instruct tested on NVIDIA NIM",
+          "selftext": "Successfully ran inference with 128k context length on NVIDIA Build endpoint. Speed is great.",
+          "permalink": "/r/LocalLLaMA/comments/post_llama_128k"
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "id": "post_ds_pro",
+          "subreddit": "LocalLLaMA",
+          "author": "deepseek_fan",
+          "title": "deepseek-ai/deepseek-v4-pro-0813 is online",
+          "selftext": "NVIDIA just added DeepSeek V4 Pro. Supports 1M context tokens and handles long reasoning chains well.",
+          "permalink": "/r/LocalLLaMA/comments/post_ds_pro"
+        }
+      }
+    ]
+  }
+}

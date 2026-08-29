@@ -1,0 +1,20 @@
+{
+  "benchmarks": [
+    {
+      "model": "meta/llama-3.1-405b-instruct",
+      "tps": 43.1,
+      "latency": 178.0,
+      "uptime": 99.8,
+      "context": "128k",
+      "rank": 14
+    },
+    {
+      "model": "deepseek-ai/deepseek-v4-pro-0813",
+      "speed": 89.2,
+      "latency_ms": 118.0,
+      "availability": 100.0,
+      "max_context": "1M",
+      "rank": 3
+    }
+  ]
+}

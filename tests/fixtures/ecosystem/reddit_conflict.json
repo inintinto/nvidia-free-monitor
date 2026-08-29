@@ -1,0 +1,40 @@
+{
+  "kind": "Listing",
+  "data": {
+    "children": [
+      {
+        "kind": "t3",
+        "data": {
+          "id": "post_gemma_claim_1",
+          "subreddit": "LocalLLaMA",
+          "author": "user_a",
+          "title": "google/gemma-2-27b-it context limit",
+          "selftext": "I got it working with 32k context tokens.",
+          "permalink": "/r/LocalLLaMA/comments/post_gemma_claim_1"
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "id": "post_gemma_claim_2",
+          "subreddit": "LocalLLaMA",
+          "author": "user_b",
+          "title": "google/gemma-2-27b-it max context",
+          "selftext": "No, it only supports 8k context length natively.",
+          "permalink": "/r/LocalLLaMA/comments/post_gemma_claim_2"
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "id": "post_llama2_dep",
+          "subreddit": "LocalLLaMA",
+          "author": "user_c",
+          "title": "meta/llama-2-70b-chat status",
+          "selftext": "This model is deprecated on NVIDIA Build, use meta/llama-3.3-70b-instruct instead.",
+          "permalink": "/r/LocalLLaMA/comments/post_llama2_dep"
+        }
+      }
+    ]
+  }
+}

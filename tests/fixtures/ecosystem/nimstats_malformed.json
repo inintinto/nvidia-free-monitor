@@ -1,0 +1,14 @@
+[
+  {
+    "invalid_key": "broken_row_without_model_id"
+  },
+  {
+    "model_id": "invalid_no_slash_model",
+    "tokens_per_sec": 50.0
+  },
+  {
+    "model_id": "meta/llama-3.1-405b-instruct",
+    "tokens_per_sec": "not_a_number",
+    "observed_context": "128k"
+  }
+]
