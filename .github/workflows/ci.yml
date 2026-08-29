@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - "data/**"
+      - "docs/**"
+      - "*.md"
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  python-tests:
+    name: Python Unit Tests (3.12)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Run Python unit tests (0 pip dependencies)
+        run: |
+          python -m unittest discover -s tests -v
+
+  worker-tests:
+    name: Worker TypeScript & Unit Tests (Node 20)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+
+      - name: Install worker dependencies
+        run: |
+          npm ci --prefix worker
+
+      - name: Run TypeScript typecheck
+        run: |
+          npm run typecheck --prefix worker
+
+      - name: Run Worker unit tests
+        run: |
+          npm test --prefix worker

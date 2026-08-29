@@ -1,0 +1,59 @@
+name: "🐛 Bug 报告 (Bug Report)"
+description: "报告代码错误、抓取异常、解析失败或 Bot 查询缺陷"
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈问题！在提交 Bug 之前，请确认：
+        - 若发现**安全漏洞**或凭据泄露风险，请**切勿在此公开提报**，请参阅 [SECURITY.md](https://github.com/inintinto/nvidia-free-monitor/blob/main/SECURITY.md) 使用 GitHub 私网安全通道提报。
+        - 严禁在 Issue 内容或日志中附带真实 Telegram Token、API Key 或任何敏感凭据。
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "问题描述 (Problem Description)"
+      description: "清晰、简要地描述遇到的异常行为。"
+      placeholder: "例如：在解析特定模型网页时出现 KeyError，或 Telegram Bot 在查询某模型时返回空白..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "复现步骤 (Reproduction Steps)"
+      description: "提供能够复现该问题的最小操作步骤或执行命令。"
+      placeholder: |
+        1. 运行命令 `python -m src.catalog.orchestrator`
+        2. 或者在 Telegram Bot 中输入 `/model xxx`
+        3. 观察到报错输出...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_vs_actual
+    attributes:
+      label: "预期行为与实际行为 (Expected vs Actual)"
+      description: "说明你原本期望的行为与实际发生的情况。"
+      placeholder: "预期：正常返回模型规格卡片；实际：捕获到未处理的异常..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: "日志与报错信息 (Logs & Error Output)"
+      description: "粘贴脱敏后的终端报错日志或堆栈信息（请确保已移除任何敏感凭据）。"
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: environment
+    attributes:
+      label: "运行环境 (Environment)"
+      description: "说明 Python / Node.js 版本及操作系统环境。"
+      placeholder: "例如：Python 3.12.3 / Node 20.15.0 / Ubuntu 24.04 (或 Windows 11)"
+    validations:
+      required: false

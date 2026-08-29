@@ -1,0 +1,38 @@
+name: "💡 功能建议 (Feature Request)"
+description: "提出关于端点监控、元数据解析、搜索算法或 Bot 查询交互的改进构想"
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🧭 项目定位准则提醒
+        提出建议前，请参阅 [ROADMAP.md](https://github.com/inintinto/nvidia-free-monitor/blob/main/ROADMAP.md) 与核心原则：
+        - **NVIDIA First**：优先保障 NVIDIA NIM / Build 端点监控与元数据质量；
+        - **Lightweight Infrastructure**：坚守 Zero-VPS Serverless（GitHub Actions + Cloudflare Workers）架构，不引入重量级常驻服务器或私有数据库。
+
+  - type: textarea
+    id: problem_background
+    attributes:
+      label: "问题背景与使用场景 (Problem Background & Use Case)"
+      description: "描述你在使用过程中遇到了什么不便，或者什么样的业务场景催生了该功能需求。"
+      placeholder: "例如：在 Telegram 查询某些长名称模型时难以区分版本，或者需要更灵活的别名搜索..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: "建议的解决方案 (Proposed Solution)"
+      description: "清晰阐述你期望的改进方案或交互形态。"
+      placeholder: "建议在 resolver.ts 中增加某类别名规则，或在详情卡片中增加某个官方字段..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "备选方案 (Alternatives Considered)"
+      description: "你是否考虑过其他替代实现方式？"
+    validations:
+      required: false

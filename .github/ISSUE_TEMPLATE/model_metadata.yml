@@ -1,0 +1,54 @@
+name: "📋 模型元数据补全 / 修正 (Model Metadata)"
+description: "补充官方模型规格（参数量、上下文、模态、架构或官方链接）"
+title: "[Metadata]: "
+labels: ["metadata", "catalog"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 📜 Ground Truth 与零臆测准则
+        本项目严格遵循 **Ground Truth 优先** 原则：
+        - 技术规格必须来自 **NVIDIA Build 页面 (`build.nvidia.com/<model_id>`)** 或 **NVIDIA 官方 API 文档** 等权威一手来源。
+        - **严禁仅凭模型名称（如包含 `70B`、`405B`）主观猜测或脑补技术参数**。若官方未披露具体数值，对应字段必须留空。
+
+  - type: input
+    id: model_id
+    attributes:
+      label: "模型 ID (Model ID)"
+      description: "标准格式的 Model ID，通常为 `<provider>/<model-name>`。"
+      placeholder: "例如：meta/llama-3.3-70b-instruct 或 deepseek-ai/deepseek-v4-pro-0813"
+    validations:
+      required: true
+
+  - type: input
+    id: official_source_url
+    attributes:
+      label: "官方一手来源链接 (Official Source URL)"
+      description: "提供证明该技术规格的 NVIDIA Build 页面或官方一手文档 URL。"
+      placeholder: "https://build.nvidia.com/..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_metadata
+    attributes:
+      label: "建议补全/修正的技术规格 (Proposed Technical Specifications)"
+      description: "列出需新增或修正的具体字段（架构、总参数量、激活参数量、上下文长度、模态等）。"
+      placeholder: |
+        • 架构类型 (Architecture): MoE / Dense
+        • 总参数量 (Total Parameters): 例如 70B (需有官方出处)
+        • 激活参数 (Active Parameters): 例如 13B (若适用)
+        • 上下文长度 (Context Length): 例如 128k tokens
+        • 输入/输出模态 (Modalities): Text -> Text
+        • 官方 API 文档链接 (Docs URL): https://docs.api.nvidia.com/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence_notes
+    attributes:
+      label: "证据说明 (Evidence Notes)"
+      description: "简要说明数据来源的段落、截屏描述或提取依据。"
+      placeholder: "在官方网页规格表第四行明确标注了 'Context: 128k'..."
+    validations:
+      required: false
