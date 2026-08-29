@@ -115,7 +115,7 @@ test("Stage 3 Visual Branding System Tests", async (t) => {
     assert.equal(getModelTitle(gemma2), "🕊️ ⚙️ Gemma 2 27B IT");
 
     const bge = store.getModel("baai/bge-m3")!;
-    assert.equal(getModelTitle(bge), "🧬 🧬 BGE-M3");
+    assert.equal(getModelTitle(bge), "🧬 🧬 BGE-M3 Embedding");
   });
 
   await t.test("8. Model Button Formatter format verification", () => {

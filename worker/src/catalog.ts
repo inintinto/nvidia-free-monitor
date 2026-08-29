@@ -249,8 +249,8 @@ export class CatalogStore {
     return Array.from(this.modelsMap.values());
   }
 
-  listModels(): ModelDetail[] {
-    return this.getAllModels();
+  listModels(providerId?: string, capability?: string): ModelDetail[] {
+    return this.filterModels(providerId, capability);
   }
 
   getProviders(): ProviderSummary[] {
