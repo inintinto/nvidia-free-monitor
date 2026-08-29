@@ -347,4 +347,4 @@ npm --prefix worker test
 - **开源许可证**：本项目采用标准宽松的 [MIT License](LICENSE) 授权，Copyright (c) 2026 inintinto。
 - **行为准则**：本项目遵循 [Contributor Covenant 2.1](CODE_OF_CONDUCT.md) 社区行为规范。
 - **安全政策**：详见 [SECURITY.md](SECURITY.md)。
-- **贡献指南**：*CONTRIBUTING.md 规范即将在后续阶段正式发布*。欢迎通过 [GitHub Issues](https://github.com/inintinto/nvidia-free-monitor/issues) 与 [Pull Requests](https://github.com/inintinto/nvidia-free-monitor/pulls) 参与社区共建！
+- **贡献指南**：详见 [CONTRIBUTING.md](CONTRIBUTING.md)。欢迎通过 [GitHub Issues](https://github.com/inintinto/nvidia-free-monitor/issues) 与 [Pull Requests](https://github.com/inintinto/nvidia-free-monitor/pulls) 参与社区共建！
