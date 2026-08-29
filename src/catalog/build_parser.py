@@ -22,15 +22,17 @@ MAX_RETRIES = 3
 
 def get_opener() -> urllib.request.OpenerDirector:
     """Create URL opener with standard environment proxy support if configured."""
-    proxy = (
-        os.getenv("HTTP_PROXY")
-        or os.getenv("http_proxy")
-        or os.getenv("HTTPS_PROXY")
-        or os.getenv("https_proxy")
-    )
-    if proxy:
-        proxy_handler = urllib.request.ProxyHandler({"http": proxy, "https": proxy})
-        return urllib.request.build_opener(proxy_handler)
+    http_proxy = os.getenv("HTTP_PROXY") or os.getenv("http_proxy")
+    https_proxy = os.getenv("HTTPS_PROXY") or os.getenv("https_proxy")
+
+    proxies = {}
+    if http_proxy:
+        proxies["http"] = http_proxy
+    if https_proxy:
+        proxies["https"] = https_proxy
+
+    if proxies:
+        return urllib.request.build_opener(urllib.request.ProxyHandler(proxies))
     return urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
 

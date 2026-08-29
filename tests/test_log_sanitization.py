@@ -17,7 +17,7 @@ class TestLogSanitization(unittest.TestCase):
         """1. Telegram bot token in full URL is replaced with ***REDACTED***."""
         raw_msg = "urllib.error.HTTPError: HTTP Error 401: Unauthorized for url: https://api.telegram.org/bot123456789:ABCdefGHIjklMNOpqrsTUVwxyz1234567/sendMessage"
         sanitized = sanitize_log_message(raw_msg)
-        
+
         self.assertNotIn("123456789:ABCdefGHIjklMNOpqrsTUVwxyz1234567", sanitized)
         self.assertIn("https://api.telegram.org/bot***REDACTED***/sendMessage", sanitized)
 
@@ -25,7 +25,7 @@ class TestLogSanitization(unittest.TestCase):
         """2. Handles http scheme variations and trailing paths."""
         raw_msg = "Failed to connect to http://api.telegram.org/bot987654321:XYZ123_abcDEF/getMe (Connection refused)"
         sanitized = sanitize_log_message(raw_msg)
-        
+
         self.assertNotIn("987654321:XYZ123_abcDEF", sanitized)
         self.assertIn("http://api.telegram.org/bot***REDACTED***/getMe", sanitized)
 
@@ -57,7 +57,7 @@ class TestLogSanitization(unittest.TestCase):
                 with patch("sys.stdout", new=io.StringIO()) as fake_out:
                     send_telegram_notification(diff_with_changes, "2026-08-29T12:00:00Z")
                     output = fake_out.getvalue()
-                    
+
                     self.assertNotIn(fake_token, output)
                     self.assertIn("bot***REDACTED***/sendMessage", output)
                     self.assertIn("[WARN] Failed to send Telegram notification", output)

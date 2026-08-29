@@ -241,15 +241,41 @@ class TestBuildParserOfflineFixtures(unittest.TestCase):
             has_proxy_handler = any(isinstance(h, urllib.request.ProxyHandler) for h in opener.handlers)
             self.assertFalse(has_proxy_handler)
 
-    def test_18_get_opener_with_proxy_env(self):
-        """18. get_opener configures standard ProxyHandler when HTTP_PROXY / HTTPS_PROXY is present."""
-        test_env = {"HTTP_PROXY": "http://proxy.test:8080", "HTTPS_PROXY": "http://proxy.test:8080"}
+    def test_18_get_opener_only_http_proxy(self):
+        """18. get_opener configures only HTTP proxy when HTTP_PROXY is present."""
+        test_env = {"HTTP_PROXY": "http://http-proxy.test:8080"}
         with patch.dict(os.environ, test_env, clear=True):
             opener = get_opener()
             self.assertIsNotNone(opener)
             proxy_handlers = [h for h in opener.handlers if isinstance(h, urllib.request.ProxyHandler)]
             self.assertEqual(len(proxy_handlers), 1)
-            self.assertEqual(proxy_handlers[0].proxies.get("http"), "http://proxy.test:8080")
+            self.assertEqual(proxy_handlers[0].proxies.get("http"), "http://http-proxy.test:8080")
+            self.assertNotIn("https", proxy_handlers[0].proxies)
+
+    def test_19_get_opener_only_https_proxy(self):
+        """19. get_opener configures only HTTPS proxy when HTTPS_PROXY is present."""
+        test_env = {"HTTPS_PROXY": "http://https-proxy.test:8443"}
+        with patch.dict(os.environ, test_env, clear=True):
+            opener = get_opener()
+            self.assertIsNotNone(opener)
+            proxy_handlers = [h for h in opener.handlers if isinstance(h, urllib.request.ProxyHandler)]
+            self.assertEqual(len(proxy_handlers), 1)
+            self.assertEqual(proxy_handlers[0].proxies.get("https"), "http://https-proxy.test:8443")
+            self.assertNotIn("http", proxy_handlers[0].proxies)
+
+    def test_20_get_opener_distinct_http_and_https_proxies(self):
+        """20. get_opener preserves distinct HTTP and HTTPS proxies without cross-protocol overwriting."""
+        test_env = {
+            "HTTP_PROXY": "http://http-proxy.test:8080",
+            "HTTPS_PROXY": "http://https-proxy.test:8443",
+        }
+        with patch.dict(os.environ, test_env, clear=True):
+            opener = get_opener()
+            self.assertIsNotNone(opener)
+            proxy_handlers = [h for h in opener.handlers if isinstance(h, urllib.request.ProxyHandler)]
+            self.assertEqual(len(proxy_handlers), 1)
+            self.assertEqual(proxy_handlers[0].proxies.get("http"), "http://http-proxy.test:8080")
+            self.assertEqual(proxy_handlers[0].proxies.get("https"), "http://https-proxy.test:8443")
 
 
 if __name__ == "__main__":
