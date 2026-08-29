@@ -5,6 +5,7 @@
 [![Node.js: 20+](https://img.shields.io/badge/Node.js-20%2B-green?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Tests: 325 Passing](https://img.shields.io/badge/Tests-325%20Passing%20(Baseline)-success?logo=github-actions&logoColor=white)](#-测试套件-testing)
 [![Architecture: Zero--VPS](https://img.shields.io/badge/Architecture-Serverless%20%2F%20Zero--VPS-orange?logo=cloudflare&logoColor=white)](#-部署与架构-architecture)
+[![Telegram Bot: @nvidiamonitor_bot](https://img.shields.io/badge/Telegram_Bot-@nvidiamonitor__bot-blue?logo=telegram)](https://t.me/nvidiamonitor_bot)
 
 > **NVIDIA Free API 模型自动监控、官方元数据聚合与证据链引擎，并提供 Serverless Telegram 交互式查询前端。**
 >
@@ -228,9 +229,9 @@ Level 4: 模型详情卡片 (Model Detail Card 2.0)
 ### 公共 Demo Bot 与频道 (Demo Bot & Channel)
 
 - **💬 公共 Demo Bot**：
-  > 维护者可在此配置公共演示 Bot 链接；用户亦可依照下文指南使用 Cloudflare Workers 免费一键部署专属私有 Bot。
+  > 公共 Demo Bot 已就绪，欢迎直接体验交互查询：[@nvidiamonitor_bot](https://t.me/nvidiamonitor_bot)。亦可依照下文指南使用 Cloudflare Workers 免费一键部署专属私有 Bot。
 - **📢 官方动态频道**：
-  > 预留用于模型变动实时广播的 Telegram Channel 入口（可在 GitHub Secrets 中配置 `TELEGRAM_CHAT_ID` 绑定至你的私有或公开频道）。
+  > 目前暂未建立官方公共广播频道；如需接收模型上下线实时告警，可在 GitHub Secrets 中配置 `TELEGRAM_CHAT_ID` 绑定至你自己的私有群组或频道。
 
 ---
 
