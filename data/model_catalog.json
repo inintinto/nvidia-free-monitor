@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "updated_at": "2026-08-23T15:30:00Z",
+  "updated_at": "2026-08-27T04:17:15.251467+00:00",
   "models": {
     "deepseek-ai/deepseek-v4-flash-0731": {
       "model_id": "deepseek-ai/deepseek-v4-flash-0731",
@@ -232,8 +232,8 @@
       },
       "classification": {
         "family": "Llama-3.1",
-        "tier": "flagship",
-        "model_type": "chat",
+        "tier": "standard",
+        "model_type": "vision",
         "speed": "standard"
       },
       "architecture": {
@@ -250,7 +250,8 @@
       "capabilities": [
         "Chat",
         "Reasoning",
-        "Coding"
+        "Coding",
+        "Vision"
       ],
       "release": {
         "first_seen": "2026-07-23T00:00:00Z",
@@ -273,7 +274,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/meta/llama-3.1-405b-instruct",
         "official": "https://llama.meta.com",
-        "documentation": null,
+        "documentation": "https://docs.api.nvidia.com",
         "model_card": null
       },
       "source_metadata": {
@@ -281,11 +282,12 @@
           "architecture": "official",
           "context": "official",
           "parameters": "official",
-          "capabilities": "official",
-          "endpoint_usage": "official_aggregate"
+          "capabilities": "NVIDIA Build",
+          "endpoint_usage": "official_aggregate",
+          "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-23T15:30:00Z"
+        "last_verified": "2026-08-27T03:35:46.393099+00:00"
       }
     },
     "nvidia/nemotron-4-340b-instruct": {
@@ -361,7 +363,7 @@
     },
     "google/gemma-2-27b-it": {
       "model_id": "google/gemma-2-27b-it",
-      "display_name": "Gemma 2 27B IT",
+      "display_name": "gemma-2-27b-it",
       "aliases": [
         "gemma 2",
         "gemma 2 27b",
@@ -374,8 +376,8 @@
       },
       "classification": {
         "family": "Gemma-2",
-        "tier": "medium",
-        "model_type": "chat",
+        "tier": "standard",
+        "model_type": "vision",
         "speed": "standard"
       },
       "architecture": {
@@ -391,7 +393,9 @@
       },
       "capabilities": [
         "Chat",
-        "Reasoning"
+        "Reasoning",
+        "Vision",
+        "Coding"
       ],
       "release": {
         "first_seen": "2026-06-25T00:00:00Z",
@@ -414,7 +418,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/google/gemma-2-27b-it",
         "official": "https://deepmind.google/technologies/gemma/",
-        "documentation": null,
+        "documentation": "https://docs.api.nvidia.com",
         "model_card": null
       },
       "source_metadata": {
@@ -422,11 +426,13 @@
           "architecture": "official",
           "context": "official",
           "parameters": "official",
-          "capabilities": "official",
-          "endpoint_usage": "official_aggregate"
+          "capabilities": "NVIDIA Build",
+          "endpoint_usage": "official_aggregate",
+          "display_name": "NVIDIA Build",
+          "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-08-23T15:30:00Z"
+        "last_verified": "2026-08-27T03:35:46.404628+00:00"
       }
     },
     "01-ai/yi-large": {
@@ -566,6 +572,79 @@
         },
         "confidence": "high",
         "last_verified": "2026-08-23T15:30:00Z"
+      }
+    },
+    "deepseek-ai/deepseek-v4-pro-0813": {
+      "model_id": "deepseek-ai/deepseek-v4-pro-0813",
+      "provider": {
+        "id": "deepseek-ai",
+        "name": "Deepseek Ai"
+      },
+      "display_name": "deepseek-v4-pro-0813",
+      "classification": {
+        "family": null,
+        "tier": "standard",
+        "model_type": "chat",
+        "speed": "standard"
+      },
+      "architecture": {
+        "type": "MoE",
+        "total_parameters": "1.65T",
+        "active_parameters": "49B",
+        "parameter_status": "official"
+      },
+      "context": {
+        "length": "1M",
+        "max_output": null,
+        "status": "official"
+      },
+      "capabilities": [
+        "Coding",
+        "Reasoning",
+        "Chat",
+        "Agentic"
+      ],
+      "links": {
+        "nvidia": "https://build.nvidia.com/deepseek-ai/deepseek-v4-pro-0813",
+        "official": null,
+        "documentation": "https://docs.api.nvidia.com",
+        "model_card": null
+      },
+      "source_metadata": {
+        "field_sources": {
+          "display_name": "NVIDIA Build",
+          "architecture.type": "NVIDIA Build",
+          "capabilities": "NVIDIA Build",
+          "links.nvidia": "NVIDIA Build",
+          "links.documentation": "NVIDIA Build",
+          "classification.speed": "local_heuristic",
+          "architecture.total_parameters": "NVIDIA Build",
+          "architecture.active_parameters": "NVIDIA Build",
+          "context.length": "NVIDIA Build",
+          "classification.model_type": "NVIDIA Build"
+        },
+        "confidence": "high",
+        "last_verified": "2026-08-27T04:17:15.251478+00:00"
+      },
+      "slug": "deepseek-v4-pro-0813",
+      "aliases": [],
+      "release": {
+        "first_seen": "2026-08-27T03:35:46.392951+00:00",
+        "release_date": null,
+        "status": "official"
+      },
+      "lifecycle": {
+        "availability": "active",
+        "removed_at": null,
+        "official_deprecation_date": null,
+        "deprecation_source_url": null
+      },
+      "endpoint": {
+        "available": true,
+        "api_calls_24h": null,
+        "api_calls_daily": null,
+        "api_calls_7d": null,
+        "api_calls_30d": null
       }
     }
   }

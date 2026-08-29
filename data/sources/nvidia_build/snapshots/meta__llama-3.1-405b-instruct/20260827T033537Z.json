@@ -1,0 +1,8 @@
+{
+  "model_id": "meta/llama-3.1-405b-instruct",
+  "source_url": "https://build.nvidia.com/meta/llama-3.1-405b-instruct",
+  "fetched_at": "2026-08-27T03:35:37.710114+00:00",
+  "sha256": "118dd67d9d55b5086c8bc7fffda0985a55508fc02aedf373efafa5b0516162fc",
+  "content_length": 73838,
+  "format_version": "1.0"
+}
