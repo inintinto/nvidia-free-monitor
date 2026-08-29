@@ -66,21 +66,51 @@ def compute_sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def generate_reddit_evidence_hash(
+    raw_bytes: bytes,
+    source_url: str = "https://reddit.com",
+    now: Optional[datetime] = None,
+) -> tuple[str, dict[str, Any]]:
+    """
+    Zero Raw Storage metadata generator (Production Mode).
+    Calculates SHA-256 cryptographic proof in-memory without persisting any
+    raw Reddit User Content (titles, body text, or author identities) to disk.
+    """
+    now_dt = now or datetime.now(timezone.utc)
+    sha256_hash = compute_sha256(raw_bytes)
+
+    meta_info = {
+        "source": "Reddit",
+        "source_url": source_url,
+        "observed_at": now_dt.isoformat(),
+        "byte_size": len(raw_bytes),
+        "sha256": sha256_hash,
+        "storage_mode": "in_memory_zero_storage",
+    }
+    return sha256_hash, meta_info
+
+
 def save_reddit_raw_evidence(
     raw_bytes: bytes,
     base_dir: Path = DEFAULT_REDDIT_SOURCES_DIR,
     source_url: str = "https://reddit.com",
     now: Optional[datetime] = None,
-) -> tuple[Path, str]:
+    persist_to_disk: bool = False,
+) -> tuple[Optional[Path], str]:
     """
-    Save raw Reddit payload snapshot atomically and record SHA-256 integrity.
+    Generate SHA-256 integrity hash for Reddit raw response.
+    By default (persist_to_disk=False), operates strictly in memory (Zero Storage).
+    Disk writing is only performed if explicitly requested for offline testing.
     """
+    sha256_hash = compute_sha256(raw_bytes)
+    if not persist_to_disk:
+        return None, sha256_hash
+
     base_dir = Path(base_dir)
     base_dir.mkdir(parents=True, exist_ok=True)
 
     now_dt = now or datetime.now(timezone.utc)
     ts_str = now_dt.strftime("%Y%m%d_%H%M%S")
-    sha256_hash = compute_sha256(raw_bytes)
     short_hash = sha256_hash[:8]
 
     target_file = base_dir / f"reddit_snapshot_{ts_str}_{short_hash}.json"

@@ -29,6 +29,7 @@ from src.catalog.ecosystem.nimstats import (
 from src.catalog.ecosystem.reddit import (
     CommunitySignal,
     fetch_reddit_data,
+    generate_reddit_evidence_hash,
     parse_reddit_payload,
     save_reddit_raw_evidence,
 )
@@ -357,12 +358,13 @@ def run_unified_evidence_sync(
         except Exception as nim_err:
             source_statuses["nimstats"] = {"status": f"error: {nim_err}", "records_generated": 0}
 
-        # C. Reddit
+        # C. Reddit (Zero Raw Content Storage Mode)
         try:
             reddit_bytes, reddit_status = reddit_fetch_func(timeout=5, max_retries=1)
             if reddit_bytes:
-                save_reddit_raw_evidence(reddit_bytes)
-                signals, _ = parse_reddit_payload(reddit_bytes)
+                # In-memory cryptographic proof generation without persisting raw User Content to disk
+                _, meta = generate_reddit_evidence_hash(reddit_bytes)
+                signals, _ = parse_reddit_payload(reddit_bytes, sha256_hash=meta["sha256"])
                 reddit_recs = reddit_signals_to_ledger_records(signals)
                 new_ledger_records.extend(reddit_recs)
                 source_statuses["reddit"] = {"status": "success", "signals_count": len(signals), "records_generated": len(reddit_recs)}

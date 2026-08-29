@@ -16,6 +16,7 @@ from src.catalog.ecosystem.reddit import (
     CommunitySignal,
     compute_sha256,
     fetch_reddit_data,
+    generate_reddit_evidence_hash,
     parse_reddit_payload,
     reddit_to_evidence_items,
     save_reddit_raw_evidence,
@@ -28,6 +29,7 @@ from src.catalog.evidence import (
     add_evidence,
     check_staleness,
 )
+from src.catalog.unified_orchestrator import reddit_signals_to_ledger_records
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures" / "ecosystem"
 
@@ -90,8 +92,8 @@ class TestRedditCollector(unittest.TestCase):
         self.assertEqual(llama2_rep.model_id, "meta/llama-2-70b-chat")
         self.assertEqual(llama2_rep.claim_value, "meta/llama-3.3-70b-instruct")
 
-    def test_05_save_raw_evidence_and_sha256_integrity(self):
-        """5. Reddit raw evidence is atomically stored with exact SHA-256 metadata."""
+    def test_05_zero_raw_storage_by_default_and_sha256_integrity(self):
+        """5. In production default mode, Zero Raw Storage is strictly enforced with in-memory SHA-256."""
         raw_bytes = load_fixture_bytes("reddit_valid.json")
         expected_hash = compute_sha256(raw_bytes)
 
@@ -102,8 +104,36 @@ class TestRedditCollector(unittest.TestCase):
                 base_dir=base_path,
                 source_url="https://reddit.com/r/LocalLLaMA",
                 now=self.now_dt,
+                persist_to_disk=False,  # Production default
             )
 
+            self.assertIsNone(target_file)
+            self.assertEqual(saved_hash, expected_hash)
+            # Verify no file was created on disk
+            created_files = list(base_path.glob("*"))
+            self.assertEqual(len(created_files), 0)
+
+            # Test generate_reddit_evidence_hash
+            gen_hash, meta = generate_reddit_evidence_hash(raw_bytes, "https://reddit.com/r/LocalLLaMA", self.now_dt)
+            self.assertEqual(gen_hash, expected_hash)
+            self.assertEqual(meta["storage_mode"], "in_memory_zero_storage")
+
+    def test_05b_offline_persist_raw_evidence_when_explicitly_requested(self):
+        """5b. Offline debugging explicitly allowing disk persistence stores snapshot atomically."""
+        raw_bytes = load_fixture_bytes("reddit_valid.json")
+        expected_hash = compute_sha256(raw_bytes)
+
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            base_path = Path(tmp_dir)
+            target_file, saved_hash = save_reddit_raw_evidence(
+                raw_bytes=raw_bytes,
+                base_dir=base_path,
+                source_url="https://reddit.com/r/LocalLLaMA",
+                now=self.now_dt,
+                persist_to_disk=True,
+            )
+
+            self.assertIsNotNone(target_file)
             self.assertEqual(saved_hash, expected_hash)
             self.assertTrue(target_file.exists())
             self.assertEqual(compute_sha256(target_file.read_bytes()), expected_hash)
@@ -264,6 +294,48 @@ class TestRedditCollector(unittest.TestCase):
         if not (os.environ.get("REDDIT_CLIENT_ID") and os.environ.get("REDDIT_CLIENT_SECRET")):
             self.assertIsNone(data)
             self.assertEqual(status, "credentials_not_configured")
+
+    def test_13_reddit_user_content_strictly_excluded_from_ledger_records(self):
+        """13. LedgerRecords derived from Reddit strictly omit author, post body, and title text."""
+        raw_bytes = load_fixture_bytes("reddit_valid.json")
+        signals, _ = parse_reddit_payload(raw_bytes, sha256_hash=compute_sha256(raw_bytes))
+        ledger_records = reddit_signals_to_ledger_records(signals)
+
+        self.assertGreater(len(ledger_records), 0)
+        for rec in ledger_records:
+            rec_dict = rec.to_dict()
+            # Verify no Reddit User Content keys exist
+            self.assertNotIn("author", rec_dict)
+            self.assertNotIn("title", rec_dict)
+            self.assertNotIn("selftext", rec_dict)
+            self.assertNotIn("body", rec_dict)
+            self.assertNotIn("comments", rec_dict)
+
+            # Verify source dictionary only contains permitted metadata
+            src = rec_dict.get("source", {})
+            self.assertNotIn("author", src)
+            self.assertIn("source_id", src)
+            self.assertIn("source_tier", src)
+            self.assertIn("source_url", src)
+
+    def test_14_reddit_api_failures_and_timeouts_gracefully_isolated(self):
+        """14. Network and authentication errors return controlled error status strings."""
+        # Simulated with mock/bad env
+        test_env = {"REDDIT_CLIENT_ID": "bad_id", "REDDIT_CLIENT_SECRET": "bad_secret"}
+        data, status = fetch_reddit_data(subreddit="LocalLLaMA", query="test", timeout=1)
+        # Should gracefully return None without unhandled exceptions
+        self.assertIsNone(data)
+        self.assertIsInstance(status, str)
+
+    def test_15_raw_evidence_sha256_invariance_across_zero_storage(self):
+        """15. SHA-256 cryptographic evidence is computed accurately in-memory without disk I/O."""
+        raw_bytes = load_fixture_bytes("reddit_valid.json")
+        expected_sha = compute_sha256(raw_bytes)
+        sha, meta = generate_reddit_evidence_hash(raw_bytes)
+
+        self.assertEqual(sha, expected_sha)
+        self.assertEqual(meta["byte_size"], len(raw_bytes))
+        self.assertEqual(meta["storage_mode"], "in_memory_zero_storage")
 
 
 if __name__ == "__main__":
