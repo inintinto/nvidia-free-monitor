@@ -21,18 +21,17 @@ MAX_RETRIES = 3
 
 
 def get_opener() -> urllib.request.OpenerDirector:
-    """Create URL opener with environment proxy support if available."""
-    proxy = os.getenv("HTTP_PROXY") or os.getenv("http_proxy") or os.getenv("HTTPS_PROXY") or os.getenv("https_proxy")
+    """Create URL opener with standard environment proxy support if configured."""
+    proxy = (
+        os.getenv("HTTP_PROXY")
+        or os.getenv("http_proxy")
+        or os.getenv("HTTPS_PROXY")
+        or os.getenv("https_proxy")
+    )
     if proxy:
         proxy_handler = urllib.request.ProxyHandler({"http": proxy, "https": proxy})
         return urllib.request.build_opener(proxy_handler)
-    # Check default localhost proxy in developer environments
-    try:
-        # Check if 127.0.0.1:20122 is responsive
-        proxy_handler = urllib.request.ProxyHandler({"http": "http://127.0.0.1:20122", "https": "http://127.0.0.1:20122"})
-        return urllib.request.build_opener(proxy_handler)
-    except Exception:
-        return urllib.request.build_opener()
+    return urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
 
 def fetch_build_html(model_id: str, timeout: int = DEFAULT_TIMEOUT) -> Optional[str]:

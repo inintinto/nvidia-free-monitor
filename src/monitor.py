@@ -1,6 +1,7 @@
 import html
 import json
 import os
+import re
 import sys
 import time
 import urllib.error
@@ -340,6 +341,21 @@ def build_telegram_message(diff_result: dict, now_iso: str) -> str:
     return "\n".join(lines).strip()
 
 
+def sanitize_log_message(msg: str) -> str:
+    """
+    Sanitize sensitive tokens/secrets from error or log messages.
+    Specifically redacts Telegram Bot API tokens embedded in URLs:
+    https://api.telegram.org/bot<TOKEN>/... -> https://api.telegram.org/bot***REDACTED***/...
+    """
+    if not msg:
+        return ""
+    return re.sub(
+        r"(https?://api\.telegram\.org/bot)[^/\s]+",
+        r"\1***REDACTED***",
+        str(msg),
+    )
+
+
 def send_telegram_notification(diff_result: dict, now_iso: str) -> None:
     """Send Telegram notification safely if credentials exist and changes occurred on existing baseline."""
     # Strictly require existing baseline with detected changes
@@ -374,7 +390,8 @@ def send_telegram_notification(diff_result: dict, now_iso: str) -> None:
             else:
                 print(f"[WARN] Telegram API responded with status {resp.status}")
     except Exception as err:
-        print(f"[WARN] Failed to send Telegram notification: {err}")
+        sanitized_err = sanitize_log_message(str(err))
+        print(f"[WARN] Failed to send Telegram notification: {sanitized_err}")
 
 
 def main() -> None:

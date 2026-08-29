@@ -5,6 +5,7 @@ Ensures 100% offline testability, strict Ground Truth preservation, and zero gue
 
 import os
 import unittest
+import urllib.request
 from pathlib import Path
 from typing import Optional
 from unittest.mock import MagicMock, patch
@@ -12,6 +13,7 @@ from unittest.mock import MagicMock, patch
 from src.catalog.build_parser import (
     enrich_single_model,
     extract_rsc_chunks,
+    get_opener,
     parse_build_metadata,
 )
 
@@ -229,6 +231,25 @@ class TestBuildParserOfflineFixtures(unittest.TestCase):
         self.assertNotIn("Vision", data["capabilities"])
         self.assertEqual(data["source_metadata"]["field_sources"]["architecture.total_parameters"], "NVIDIA Build")
         self.assertEqual(data["source_metadata"]["field_sources"]["context.length"], "NVIDIA Build")
+
+    def test_17_get_opener_no_proxy_env(self):
+        """17. get_opener returns direct OpenerDirector without proxy handlers when no proxy env is set."""
+        with patch.dict(os.environ, {}, clear=True):
+            opener = get_opener()
+            self.assertIsNotNone(opener)
+            # Verify no ProxyHandler is added to handlers
+            has_proxy_handler = any(isinstance(h, urllib.request.ProxyHandler) for h in opener.handlers)
+            self.assertFalse(has_proxy_handler)
+
+    def test_18_get_opener_with_proxy_env(self):
+        """18. get_opener configures standard ProxyHandler when HTTP_PROXY / HTTPS_PROXY is present."""
+        test_env = {"HTTP_PROXY": "http://proxy.test:8080", "HTTPS_PROXY": "http://proxy.test:8080"}
+        with patch.dict(os.environ, test_env, clear=True):
+            opener = get_opener()
+            self.assertIsNotNone(opener)
+            proxy_handlers = [h for h in opener.handlers if isinstance(h, urllib.request.ProxyHandler)]
+            self.assertEqual(len(proxy_handlers), 1)
+            self.assertEqual(proxy_handlers[0].proxies.get("http"), "http://proxy.test:8080")
 
 
 if __name__ == "__main__":
