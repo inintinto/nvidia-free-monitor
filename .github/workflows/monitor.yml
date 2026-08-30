@@ -3,7 +3,7 @@ name: NVIDIA Free Endpoint Monitor
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "17,47 * * * *"
 
 concurrency:
   group: nvidia-monitor-baseline
