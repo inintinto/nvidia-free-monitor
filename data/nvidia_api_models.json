@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-08-28T09:39:00.887438+00:00",
+  "checked_at": "2026-09-01T10:28:08.379126+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 83,
+  "model_count": 82,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -285,11 +285,6 @@
     },
     {
       "id": "nvidia/nemotron-3-embed-1b",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/nemotron-3-nano-30b-a3b",
       "owned_by": "nvidia",
       "created": 735790403
     },
