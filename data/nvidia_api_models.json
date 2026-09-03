@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-09-01T10:28:08.379126+00:00",
+  "checked_at": "2026-09-03T09:12:19.720204+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 82,
+  "model_count": 81,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -366,11 +366,6 @@
     {
       "id": "nvidia/vila",
       "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "openai/gpt-oss-120b",
-      "owned_by": "openai",
       "created": 735790403
     },
     {
