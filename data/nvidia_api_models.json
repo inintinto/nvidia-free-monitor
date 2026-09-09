@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-09-03T09:12:19.720204+00:00",
+  "checked_at": "2026-09-09T09:13:09.693651+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 81,
+  "model_count": 80,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -156,11 +156,6 @@
     {
       "id": "microsoft/phi-3.5-moe-instruct",
       "owned_by": "microsoft",
-      "created": 735790403
-    },
-    {
-      "id": "minimaxai/minimax-m3",
-      "owned_by": "minimaxai",
       "created": 735790403
     },
     {
