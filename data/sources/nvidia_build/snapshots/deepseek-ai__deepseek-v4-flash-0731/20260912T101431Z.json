@@ -1,0 +1,8 @@
+{
+  "model_id": "deepseek-ai/deepseek-v4-flash-0731",
+  "source_url": "https://build.nvidia.com/deepseek-ai/deepseek-v4-flash-0731",
+  "fetched_at": "2026-09-12T10:14:31.154235+00:00",
+  "sha256": "29759fd2d216dfb6098bedb689954d24fc852a179daebb28dfcbc4c0ee3631fc",
+  "content_length": 206508,
+  "format_version": "1.0"
+}
