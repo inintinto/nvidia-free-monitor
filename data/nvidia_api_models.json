@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-09-12T01:33:51.110057+00:00",
+  "checked_at": "2026-09-14T14:01:59.847315+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 82,
+  "model_count": 81,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -40,11 +40,6 @@
     },
     {
       "id": "deepseek-ai/deepseek-v4-flash-0731",
-      "owned_by": "deepseek-ai",
-      "created": 735790403
-    },
-    {
-      "id": "deepseek-ai/deepseek-v4-pro-0813",
       "owned_by": "deepseek-ai",
       "created": 735790403
     },
