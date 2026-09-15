@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-09-14T14:01:59.847315+00:00",
+  "checked_at": "2026-09-15T22:13:14.207354+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 81,
+  "model_count": 82,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -396,6 +396,11 @@
     {
       "id": "writer/palmyra-med-70b-32k",
       "owned_by": "writer",
+      "created": 735790403
+    },
+    {
+      "id": "z-ai/glm-5.3",
+      "owned_by": "z-ai",
       "created": 735790403
     },
     {
