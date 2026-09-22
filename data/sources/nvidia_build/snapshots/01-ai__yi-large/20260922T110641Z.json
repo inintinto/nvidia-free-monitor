@@ -1,0 +1,8 @@
+{
+  "model_id": "01-ai/yi-large",
+  "source_url": "https://build.nvidia.com/01-ai/yi-large",
+  "fetched_at": "2026-09-22T11:06:41.142328+00:00",
+  "sha256": "7b18ba2992ea7d986e2bcd4783547ea8afbc31561fe477bfbbce17414780a327",
+  "content_length": 150174,
+  "format_version": "1.0"
+}
