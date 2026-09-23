@@ -1,0 +1,8 @@
+{
+  "model_id": "baai/bge-m3",
+  "source_url": "https://build.nvidia.com/baai/bge-m3",
+  "fetched_at": "2026-09-23T10:56:38.328717+00:00",
+  "sha256": "7b7f4937f5cb7ede0ba4fb0f15b4e7028f1c9c17cfb02d218664929ef278986a",
+  "content_length": 191987,
+  "format_version": "1.0"
+}

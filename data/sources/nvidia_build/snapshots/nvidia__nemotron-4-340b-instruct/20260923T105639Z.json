@@ -1,0 +1,8 @@
+{
+  "model_id": "nvidia/nemotron-4-340b-instruct",
+  "source_url": "https://build.nvidia.com/nvidia/nemotron-4-340b-instruct",
+  "fetched_at": "2026-09-23T10:56:39.869091+00:00",
+  "sha256": "5104a9d75c081087e3d5eb5fef9c1c010ce0792c1b895b6d53864ebb203edc10",
+  "content_length": 150216,
+  "format_version": "1.0"
+}
