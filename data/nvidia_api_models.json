@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-09-21T22:49:38.418699+00:00",
+  "checked_at": "2026-09-28T11:59:33.573124+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 82,
+  "model_count": 81,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -170,11 +170,6 @@
     },
     {
       "id": "mistralai/mistral-large-2-instruct",
-      "owned_by": "mistralai",
-      "created": 735790403
-    },
-    {
-      "id": "mistralai/mistral-nemotron",
       "owned_by": "mistralai",
       "created": 735790403
     },
