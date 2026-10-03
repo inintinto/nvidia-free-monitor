@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-03T10:40:02.214943+00:00",
+  "checked_at": "2026-10-03T18:40:52.570990+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 80,
+  "model_count": 81,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -275,6 +275,11 @@
     },
     {
       "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+      "owned_by": "nvidia",
+      "created": 735790403
+    },
+    {
+      "id": "nvidia/nemotron-3-super-120b-a12b",
       "owned_by": "nvidia",
       "created": 735790403
     },
