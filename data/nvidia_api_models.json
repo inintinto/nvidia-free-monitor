@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-05T09:02:51.494280+00:00",
+  "checked_at": "2026-10-15T11:27:19.961586+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
   "model_count": 80,
   "models": [
@@ -184,11 +184,6 @@
       "created": 735790403
     },
     {
-      "id": "moonshotai/kimi-k3",
-      "owned_by": "moonshotai",
-      "created": 735790403
-    },
-    {
       "id": "nv-mistralai/mistral-nemo-12b-instruct",
       "owned_by": "nv-mistralai",
       "created": 735790403
@@ -366,6 +361,11 @@
     {
       "id": "snowflake/arctic-embed-l",
       "owned_by": "snowflake",
+      "created": 735790403
+    },
+    {
+      "id": "stepfun-ai/step-5-preview",
+      "owned_by": "stepfun-ai",
       "created": 735790403
     },
     {
