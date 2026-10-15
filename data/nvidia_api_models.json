@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-15T11:27:19.961586+00:00",
+  "checked_at": "2026-10-15T15:43:56.122028+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 80,
+  "model_count": 81,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -290,6 +290,11 @@
     },
     {
       "id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "owned_by": "nvidia",
+      "created": 735790403
+    },
+    {
+      "id": "nvidia/nemotron-3.5-super-vl-120b-a12b",
       "owned_by": "nvidia",
       "created": 735790403
     },
