@@ -390,11 +390,12 @@ def run_unified_evidence_sync(
     else:
         combined_records = all_ledger_records
 
-    materialized_state = replay_evidence(combined_records)
+    now_dt = datetime.fromisoformat(start_time)
+    materialized_state = replay_evidence(combined_records, as_of=now_dt)
 
     # Rebuild state file if not dry run
     if not dry_run:
-        rebuild_materialized_state(ledger_path, state_path)
+        rebuild_materialized_state(ledger_path, state_path, as_of=now_dt)
 
     # 7. Safe Projection onto Model Catalog
     new_catalog, merge_summary = project_materialized_state_to_catalog(existing_catalog, materialized_state)

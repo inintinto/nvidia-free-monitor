@@ -540,7 +540,6 @@ def replay_evidence(
     Applies records chronologically and orders identical timestamps by SourceTier priority.
     Guarantees that any shuffled or permuted set of identical records yields identical materialized state.
     """
-    as_of_dt = as_of or datetime.now(timezone.utc)
     parsed_records: list[LedgerRecord] = []
 
     for r in records:
@@ -548,6 +547,24 @@ def replay_evidence(
             parsed_records.append(LedgerRecord.from_dict(r))
         else:
             parsed_records.append(r)
+
+    if as_of is not None:
+        as_of_dt = as_of
+    else:
+        # For pure deterministic replay, default reference time to the latest observed_at
+        # timestamp among the replayed records. Fall back to current UTC time if records is empty.
+        max_dt: Optional[datetime] = None
+        for r in parsed_records:
+            if r.observed_at:
+                try:
+                    dt = datetime.fromisoformat(r.observed_at.replace("Z", "+00:00"))
+                    if dt.tzinfo is None:
+                        dt = dt.replace(tzinfo=timezone.utc)
+                    if max_dt is None or dt > max_dt:
+                        max_dt = dt
+                except Exception:
+                    pass
+        as_of_dt = max_dt or datetime.now(timezone.utc)
 
     # Canonical sorting:
     # 1. Canonical UTC observed_at ISO timestamp (ascending)
