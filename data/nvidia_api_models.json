@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-15T15:43:56.122028+00:00",
+  "checked_at": "2026-10-21T00:58:19.542969+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 81,
+  "model_count": 83,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -285,6 +285,16 @@
     },
     {
       "id": "nvidia/nemotron-3.5-content-safety",
+      "owned_by": "nvidia",
+      "created": 735790403
+    },
+    {
+      "id": "nvidia/nemotron-3.5-embed-1b",
+      "owned_by": "nvidia",
+      "created": 735790403
+    },
+    {
+      "id": "nvidia/nemotron-3.5-embed-8b",
       "owned_by": "nvidia",
       "created": 735790403
     },
