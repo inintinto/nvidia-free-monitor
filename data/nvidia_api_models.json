@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-28T08:59:09.330745+00:00",
+  "checked_at": "2026-10-29T14:17:00.946163+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 84,
+  "model_count": 85,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -175,6 +175,11 @@
     },
     {
       "id": "mistralai/mistral-large-2-instruct",
+      "owned_by": "mistralai",
+      "created": 735790403
+    },
+    {
+      "id": "mistralai/mistral-large-4-1t-a52b",
       "owned_by": "mistralai",
       "created": 735790403
     },
