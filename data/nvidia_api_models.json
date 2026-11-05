@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-29T14:17:00.946163+00:00",
+  "checked_at": "2026-11-05T09:28:44.764587+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 85,
+  "model_count": 84,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -110,11 +110,6 @@
     },
     {
       "id": "meta/codellama-70b",
-      "owned_by": "meta",
-      "created": 735790403
-    },
-    {
-      "id": "meta/llama-3.2-11b-vision-instruct",
       "owned_by": "meta",
       "created": 735790403
     },
