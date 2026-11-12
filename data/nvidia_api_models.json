@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-11-05T09:28:44.764587+00:00",
+  "checked_at": "2026-11-12T17:05:21.169253+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 84,
+  "model_count": 83,
   "models": [
     {
       "id": "01-ai/yi-large",
@@ -55,11 +55,6 @@
     },
     {
       "id": "google/deplot",
-      "owned_by": "google",
-      "created": 735790403
-    },
-    {
-      "id": "google/diffusiongemma-26b-a4b-it",
       "owned_by": "google",
       "created": 735790403
     },
