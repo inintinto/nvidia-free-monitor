@@ -2,6 +2,12 @@ name: NVIDIA Free Endpoint Monitor
 
 on:
   workflow_dispatch:
+    inputs:
+      allow_large_drop:
+        description: "Allow >50% model count drop for a verified upstream cleanup (one-time override)"
+        required: false
+        type: boolean
+        default: false
   schedule:
     - cron: "17,47 * * * *"
 
@@ -32,7 +38,12 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          python src/monitor.py
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.allow_large_drop }}" = "true" ]; then
+            echo "::warning::Running with --allow-large-drop override enabled."
+            python src/monitor.py --allow-large-drop
+          else
+            python src/monitor.py
+          fi
 
       - name: Upload snapshot artifact
         uses: actions/upload-artifact@v6

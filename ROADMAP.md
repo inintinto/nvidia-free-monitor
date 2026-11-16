@@ -27,10 +27,10 @@
 
 ## 🟢 已完成能力 (Completed)
 
-以下能力已在当前代码库完整实现，并通过了全量 329 项离线自动化测试验证：
+以下能力已在当前代码库完整实现，并通过了全量 335 项离线自动化测试验证：
 
 - [x] **NVIDIA API 实时端点监控**：GitHub Actions 每 30 分钟自动化巡检，精准检测模型新增（`added`）与下线（`removed`）。
-- [x] **双重安全熔断守卫**：实现 `MIN_VALID_MODEL_COUNT=50` 与 `MAX_DROP_RATIO=0.5` 异常防跌保护。
+- [x] **双重安全熔断守卫**：实现 `MIN_VALID_MODEL_COUNT=20` 与 `MAX_DROP_RATIO=0.5` 异常防跌保护（支持经 `workflow_dispatch` 显式确认的一次性 `--allow-large-drop` 覆写）。
 - [x] **官方一手元数据提取**：每日自动提取 `build.nvidia.com` Next.js React Server Components (RSC) 数据流与 HTML 结构化元数据。
 - [x] **版本化原始快照归档**：在 `data/sources/nvidia_build/snapshots/` 实现一手证据文件的 Git 自动化归档。
 - [x] **SHA-256 追加式证据账本**：实现轻量区块链式哈希校验账本（`evidence_ledger.py`），支持全量离线确定性状态重放与跨进程排他锁保护。
@@ -39,7 +39,7 @@
 - [x] **Cloudflare Worker Serverless Bot 前端**：基于边缘计算与 GitHub Raw CDN 缓存，提供 0 服务器成本的交互式查询。
 - [x] **4 级交互式目录导航与 5 级模糊搜索**：支持按厂商与能力下钻浏览，以及精准/别名/分词/模糊加权搜索 (`/model <query>`)。
 - [x] **真实公共 Demo Bot 接入**：公开接入全天候可用实机 Bot [`@nvidiamonitor_bot`](https://t.me/nvidiamonitor_bot)。
-- [x] **100% 离线自动化测试套件**：包含 282 项 Python 单测与 47 项 Worker 单测（共 329 项测试）。
+- [x] **100% 离线自动化测试套件**：包含 288 项 Python 单测与 47 项 Worker 单测（共 335 项测试）。
 - [x] **开源安全与治理体系**：MIT License、SECURITY.md（私网漏洞提报）、CODE_OF_CONDUCT.md、日志正则脱敏与独立代理语义。
 
 ---

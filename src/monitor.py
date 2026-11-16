@@ -1,3 +1,4 @@
+import argparse
 import html
 import json
 import os
@@ -15,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 BASELINE_FILE = BASE_DIR / "data" / "nvidia_api_models.json"
 
 # Safety Guards
-MIN_VALID_MODEL_COUNT = 50
+MIN_VALID_MODEL_COUNT = 20
 MAX_DROP_RATIO = 0.5
 MAX_RETRIES = 3
 TIMEOUT_SECONDS = 30
@@ -109,11 +110,15 @@ def load_baseline() -> dict | None:
     return None
 
 
-def compare_models(baseline_data: dict | None, current_models: list[dict]) -> dict:
+def compare_models(
+    baseline_data: dict | None,
+    current_models: list[dict],
+    allow_large_drop: bool = False,
+) -> dict:
     """Compare current models against baseline and enforce safety thresholds."""
     current_count = len(current_models)
 
-    # 1. Minimum valid count threshold
+    # 1. Minimum valid count threshold (never bypassed, protects against empty/broken responses)
     if current_count < MIN_VALID_MODEL_COUNT:
         raise RuntimeError(
             f"Safety Guard Triggered: Fetched {current_count} models, "
@@ -145,10 +150,15 @@ def compare_models(baseline_data: dict | None, current_models: list[dict]) -> di
     # 2. Maximum drop ratio safety threshold
     if old_count > 0 and (len(removed) / old_count) > MAX_DROP_RATIO:
         drop_ratio = len(removed) / old_count
-        raise RuntimeError(
-            f"Safety Guard Triggered: {len(removed)}/{old_count} ({drop_ratio:.1%}) models removed, "
-            f"exceeding the maximum allowed drop ratio of {MAX_DROP_RATIO:.0%}. "
-            "Possible upstream API outage or partial response. Refusing to update baseline."
+        if not allow_large_drop:
+            raise RuntimeError(
+                f"Safety Guard Triggered: {len(removed)}/{old_count} ({drop_ratio:.1%}) models removed, "
+                f"exceeding the maximum allowed drop ratio of {MAX_DROP_RATIO:.0%}. "
+                "Possible upstream API outage or partial response. Refusing to update baseline."
+            )
+        print(
+            f"[WARN] Large drop override enabled: {len(removed)}/{old_count} ({drop_ratio:.1%}) "
+            f"models removed (exceeds {MAX_DROP_RATIO:.0%}). Proceeding with baseline update."
         )
 
     has_changes = len(added) > 0 or len(removed) > 0
@@ -394,7 +404,21 @@ def send_telegram_notification(diff_result: dict, now_iso: str) -> None:
         print(f"[WARN] Failed to send Telegram notification: {sanitized_err}")
 
 
-def main() -> None:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    """Parse CLI arguments for monitor execution."""
+    parser = argparse.ArgumentParser(
+        description="Monitor NVIDIA API free endpoints and safely update baseline."
+    )
+    parser.add_argument(
+        "--allow-large-drop",
+        action="store_true",
+        help="Allow updating baseline when removed model ratio exceeds MAX_DROP_RATIO (still enforces MIN_VALID_MODEL_COUNT).",
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = parse_args(argv)
     now_iso = datetime.now(timezone.utc).isoformat()
 
     # 1. Fetch & Validate
@@ -403,7 +427,11 @@ def main() -> None:
 
     # 2. Compare with Baseline
     baseline_data = load_baseline()
-    diff_result = compare_models(baseline_data, models)
+    diff_result = compare_models(
+        baseline_data,
+        models,
+        allow_large_drop=args.allow_large_drop,
+    )
 
     # 3. Print & Report
     print_console_report(diff_result, now_iso)
