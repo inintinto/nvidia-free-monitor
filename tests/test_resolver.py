@@ -1,5 +1,7 @@
+import json
 import os
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -120,14 +122,33 @@ class TestModelResolver(unittest.TestCase):
 
     # 13. Unregistered baseline model resolution (Graceful Fallback)
     def test_13_unregistered_model_fallback(self):
-        # Test a model in baseline that might not be explicitly curated in catalog.json
-        res = self.resolver.resolve("adept/fuyu-8b")
-        self.assertEqual(res.match_type, "EXACT")
-        m = res.matched_models[0]
-        self.assertEqual(m.model_id, "adept/fuyu-8b")
-        self.assertEqual(m.platform, "NVIDIA NIM")
-        self.assertIsNotNone(m.display_name)
-        self.assertEqual(m.provider_id, "adept")
+        # Test a model present only in baseline and not curated in catalog.json
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tmp_path = Path(tmpdir)
+            catalog_file = tmp_path / "model_catalog.json"
+            lifecycle_file = tmp_path / "lifecycle.json"
+            baseline_file = tmp_path / "nvidia_api_models.json"
+
+            catalog_file.write_text(json.dumps({"models": {}}), encoding="utf-8")
+            lifecycle_file.write_text(json.dumps({"history": {}}), encoding="utf-8")
+            baseline_file.write_text(
+                json.dumps({"models": [{"id": "adept/fuyu-8b", "owned_by": "adept"}]}),
+                encoding="utf-8",
+            )
+
+            isolated_mgr = CatalogManager(
+                catalog_path=catalog_file,
+                lifecycle_path=lifecycle_file,
+                baseline_path=baseline_file,
+            )
+            isolated_resolver = ModelResolver(isolated_mgr)
+            res = isolated_resolver.resolve("adept/fuyu-8b")
+            self.assertEqual(res.match_type, "EXACT")
+            m = res.matched_models[0]
+            self.assertEqual(m.model_id, "adept/fuyu-8b")
+            self.assertEqual(m.platform, "NVIDIA NIM")
+            self.assertIsNotNone(m.display_name)
+            self.assertEqual(m.provider_id, "adept")
 
     # 14. Missing Lifecycle Fields Safety
     def test_14_missing_lifecycle_safety(self):
