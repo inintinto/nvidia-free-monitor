@@ -1,16 +1,11 @@
 {
-  "checked_at": "2026-11-16T10:27:25.751635+00:00",
+  "checked_at": "2026-11-17T02:55:12.395855+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 33,
+  "model_count": 32,
   "models": [
     {
       "id": "bigcode/starcoder2-15b",
       "owned_by": "bigcode",
-      "created": 735790403
-    },
-    {
-      "id": "deepseek-ai/deepseek-v4.1-flash",
-      "owned_by": "deepseek-ai",
       "created": 735790403
     },
     {
