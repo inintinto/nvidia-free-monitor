@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-11-17T02:55:12.395855+00:00",
+  "checked_at": "2026-11-18T02:53:27.686746+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 32,
+  "model_count": 33,
   "models": [
     {
       "id": "bigcode/starcoder2-15b",
@@ -36,6 +36,11 @@
     {
       "id": "mistralai/mistral-large-4-1t-a52b",
       "owned_by": "mistralai",
+      "created": 735790403
+    },
+    {
+      "id": "moonshotai/kimi-k3.1-pro",
+      "owned_by": "moonshotai",
       "created": 735790403
     },
     {
