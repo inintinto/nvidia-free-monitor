@@ -1,0 +1,8 @@
+{
+  "model_id": "google/gemma-2-27b-it",
+  "source_url": "https://build.nvidia.com/google/gemma-2-27b-it",
+  "fetched_at": "2026-11-18T15:15:39.022823+00:00",
+  "sha256": "e73e753df90e36def0287f20e603db2f3bb2a3a76a3b5f74c4cd81522b61774d",
+  "content_length": 231527,
+  "format_version": "1.0"
+}
