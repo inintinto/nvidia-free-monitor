@@ -1,11 +1,16 @@
 {
-  "checked_at": "2026-11-18T11:39:52.086513+00:00",
+  "checked_at": "2026-11-20T00:55:11.181740+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 32,
+  "model_count": 33,
   "models": [
     {
       "id": "bigcode/starcoder2-15b",
       "owned_by": "bigcode",
+      "created": 735790403
+    },
+    {
+      "id": "fastino/gliner2-pii",
+      "owned_by": "fastino",
       "created": 735790403
     },
     {
