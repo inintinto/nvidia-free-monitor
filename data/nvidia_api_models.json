@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-11-20T00:55:11.181740+00:00",
+  "checked_at": "2026-11-23T09:51:19.115440+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 33,
+  "model_count": 32,
   "models": [
     {
       "id": "bigcode/starcoder2-15b",
@@ -85,11 +85,6 @@
     },
     {
       "id": "nvidia/llama-3.2-nv-embedqa-1b-v1",
-      "owned_by": "nvidia",
-      "created": 735790403
-    },
-    {
-      "id": "nvidia/nemotron-3-embed-1b",
       "owned_by": "nvidia",
       "created": 735790403
     },
