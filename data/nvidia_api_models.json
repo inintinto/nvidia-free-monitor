@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-11-23T09:51:19.115440+00:00",
+  "checked_at": "2026-11-25T01:36:25.892322+00:00",
   "source": "https://integrate.api.nvidia.com/v1/models",
-  "model_count": 32,
+  "model_count": 30,
   "models": [
     {
       "id": "bigcode/starcoder2-15b",
@@ -21,16 +21,6 @@
     {
       "id": "google/gemma-3-4b-it",
       "owned_by": "google",
-      "created": 735790403
-    },
-    {
-      "id": "google/gemma-4-31b-it",
-      "owned_by": "google",
-      "created": 735790403
-    },
-    {
-      "id": "meta/muse-glimmer-30b",
-      "owned_by": "meta",
       "created": 735790403
     },
     {
