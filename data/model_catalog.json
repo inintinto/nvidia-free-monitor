@@ -1,6 +1,6 @@
 {
   "version": "3.1",
-  "updated_at": "2026-11-18T15:15:39.889456+00:00",
+  "updated_at": "2026-11-25T16:54:12.318490+00:00",
   "models": {
     "deepseek-ai/deepseek-v4-flash-0731": {
       "model_id": "deepseek-ai/deepseek-v4-flash-0731",
@@ -81,7 +81,7 @@
           "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-11-18T15:15:39.895432+00:00"
+        "last_verified": "2026-11-25T16:54:12.324353+00:00"
       }
     },
     "deepseek-ai/deepseek-coder-6.7b-instruct": {
@@ -106,7 +106,7 @@
       "architecture": {
         "type": "Dense",
         "total_parameters": "1B",
-        "active_parameters": "4B",
+        "active_parameters": "6.7B",
         "parameter_status": "official"
       },
       "context": {
@@ -160,7 +160,7 @@
           "architecture.total_parameters": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-11-18T15:15:39.895348+00:00"
+        "last_verified": "2026-11-25T16:54:12.324291+00:00"
       }
     },
     "meta/llama-3.3-70b-instruct": {
@@ -186,7 +186,7 @@
       "architecture": {
         "type": "Dense",
         "total_parameters": "1B",
-        "active_parameters": "4B",
+        "active_parameters": "70B",
         "parameter_status": "official"
       },
       "context": {
@@ -239,7 +239,7 @@
           "architecture.total_parameters": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-11-18T15:15:39.895747+00:00"
+        "last_verified": "2026-11-25T16:54:12.324585+00:00"
       }
     },
     "meta/llama-3.1-405b-instruct": {
@@ -264,7 +264,7 @@
       "architecture": {
         "type": "Dense",
         "total_parameters": "1B",
-        "active_parameters": "4B",
+        "active_parameters": "405B",
         "parameter_status": "official"
       },
       "context": {
@@ -318,7 +318,7 @@
           "architecture.total_parameters": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-11-18T15:15:39.895678+00:00"
+        "last_verified": "2026-11-25T16:54:12.324532+00:00"
       }
     },
     "nvidia/nemotron-4-340b-instruct": {
@@ -344,7 +344,7 @@
       "architecture": {
         "type": "Dense",
         "total_parameters": "1B",
-        "active_parameters": "4B",
+        "active_parameters": "340B",
         "parameter_status": "official"
       },
       "context": {
@@ -398,7 +398,7 @@
           "architecture.total_parameters": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-11-18T15:15:39.895814+00:00"
+        "last_verified": "2026-11-25T16:54:12.324634+00:00"
       }
     },
     "google/gemma-2-27b-it": {
@@ -423,7 +423,7 @@
       "architecture": {
         "type": "Dense",
         "total_parameters": "1B",
-        "active_parameters": "4B",
+        "active_parameters": "27B",
         "parameter_status": "official"
       },
       "context": {
@@ -461,7 +461,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/google/gemma-2-27b-it",
         "official": "https://deepmind.google/technologies/gemma/",
-        "documentation": "https://docs.api.nvidia.com",
+        "documentation": "https://docs.api.nvidia.com/nim/reference/google-gemma-2-27b-it",
         "model_card": null
       },
       "source_metadata": {
@@ -478,7 +478,7 @@
           "architecture.total_parameters": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-11-18T15:15:39.895606+00:00"
+        "last_verified": "2026-11-25T16:54:12.324470+00:00"
       }
     },
     "01-ai/yi-large": {
@@ -503,7 +503,7 @@
       "architecture": {
         "type": "Dense",
         "total_parameters": "1B",
-        "active_parameters": "4B",
+        "active_parameters": "7B",
         "parameter_status": "official"
       },
       "context": {
@@ -554,7 +554,7 @@
           "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-11-18T15:15:39.895138+00:00"
+        "last_verified": "2026-11-25T16:54:12.324079+00:00"
       }
     },
     "baai/bge-m3": {
@@ -579,7 +579,7 @@
       "architecture": {
         "type": "Dense",
         "total_parameters": "1B",
-        "active_parameters": "4B",
+        "active_parameters": "7B",
         "parameter_status": "official"
       },
       "context": {
@@ -636,7 +636,7 @@
           "links.documentation": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-11-18T15:15:39.895254+00:00"
+        "last_verified": "2026-11-25T16:54:12.324214+00:00"
       }
     },
     "deepseek-ai/deepseek-v4-pro-0813": {
@@ -672,7 +672,7 @@
       "links": {
         "nvidia": "https://build.nvidia.com/deepseek-ai/deepseek-v4-pro-0813",
         "official": null,
-        "documentation": "https://docs.api.nvidia.com",
+        "documentation": "https://docs.api.nvidia.com/nim/reference/deepseek-ai-deepseek-v4-pro-0813",
         "model_card": null
       },
       "source_metadata": {
@@ -690,7 +690,7 @@
           "lifecycle.availability": "NVIDIA Build"
         },
         "confidence": "high",
-        "last_verified": "2026-11-18T15:15:39.895521+00:00"
+        "last_verified": "2026-11-25T16:54:12.324412+00:00"
       },
       "slug": "deepseek-v4-pro-0813",
       "aliases": [],
