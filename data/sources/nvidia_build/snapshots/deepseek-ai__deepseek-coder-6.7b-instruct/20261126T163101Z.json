@@ -1,0 +1,8 @@
+{
+  "model_id": "deepseek-ai/deepseek-coder-6.7b-instruct",
+  "source_url": "https://build.nvidia.com/deepseek-ai/deepseek-coder-6.7b-instruct",
+  "fetched_at": "2026-11-26T16:31:01.104082+00:00",
+  "sha256": "823fca267b748d3d91b7a093b01de38282bc95083021cec41799a233934646da",
+  "content_length": 73915,
+  "format_version": "1.0"
+}
